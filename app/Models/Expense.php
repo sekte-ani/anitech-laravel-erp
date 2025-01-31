@@ -59,4 +59,9 @@ class Expense extends Model
     {
         return $this->belongsTo(DashboardExpense::class, 'dashboard_id');
     }
+
+    public function category()
+    {
+        return $this->belongsTo(CategoryExpense::class, 'category_id');
+    }
 }

@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class CategoryExpense extends Model
+class Invoice extends Model
 {
     use HasFactory;
 
-    protected $table = 'category_expenses';
+    protected $table = 'invoices';
 
     protected $guarded = ['id'];
 
-    public function expense()
+    public function order()
     {
-        return $this->hasMany(Expense::class);
+        return $this->belongsTo(Order::class, 'order_id', 'id');
     }
 }

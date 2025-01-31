@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            $table->enum('type', ['Internal', 'Order']);
+            $table->unsignedBigInteger('order_id')->nullable();
+            $table->date('date');
+            $table->integer('invoice_number');
+            $table->decimal('subtotal', 20, 2);
+            $table->decimal('discount', 20, 2);
+            $table->decimal('total', 20, 2);
+            $table->decimal('amount_due', 20, 2);
+            $table->string('notes')->nullable();
             $table->timestamps();
+
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 

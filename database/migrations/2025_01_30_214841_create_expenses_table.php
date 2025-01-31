@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
-            $table->date('tanggal');
+            $table->date('date');
             $table->string('item');
             $table->unsignedBigInteger('category_id');
-            $table->enum('tipe', ['Pengeluaran', 'Pemasukan']);
-            $table->enum('sumber', ['Project', 'Bulanan', 'Satu Kali', 'Tahunan']);
-            $table->decimal('jumlah', 20, 2);
+            $table->enum('type', ['Pengeluaran', 'Pemasukan']);
+            $table->enum('frequency', ['Project', 'Bulanan', 'Satu Kali', 'Tahunan']);
+            $table->decimal('amount', 20, 2);
             $table->unsignedBigInteger('dashboard_id');
             $table->timestamps();
 

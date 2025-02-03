@@ -32,6 +32,8 @@ services:
         platform: linux/amd64
         container_name: anierp-db
         restart: unless-stopped
+        ports:
+            - "3307:3306"
         environment:
             MYSQL_ROOT_PASSWORD: secret
             MYSQL_DATABASE: anierp

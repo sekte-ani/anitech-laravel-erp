@@ -1,23 +1,23 @@
 version: "3.8"
 
 services:
-    app:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        image: laravel-app
-        container_name: laranierp-app
-        restart: unless-stopped
-        working_dir: /var/www
-        volumes:
-            - .:/var/www
-            - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
-        networks:
-            - anierp-laravel
+    # app:
+    #     build:
+    #         context: .
+    #         dockerfile: Dockerfile
+    #     image: laravel-app
+    #     container_name: laranierp-app
+    #     restart: unless-stopped
+    #     working_dir: /var/www
+    #     volumes:
+    #         - .:/var/www
+    #         - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    #     networks:
+    #         - anierp-laravel
 
     web:
         image: nginx:alpine
-        container_name: brini-nginx
+        container_name: anierp-nginx
         restart: unless-stopped
         ports:
             - "8003:80"
@@ -30,7 +30,7 @@ services:
     db:
         image: mysql:5.7
         platform: linux/amd64
-        container_name: brini-db
+        container_name: anierp-db
         restart: unless-stopped
         environment:
             MYSQL_ROOT_PASSWORD: secret
@@ -43,7 +43,7 @@ services:
     phpmyadmin:
         image: phpmyadmin:latest
         platform: linux/amd64
-        container_name: brini-phpmyadmin
+        container_name: anierp-phpmyadmin
         restart: unless-stopped
         environment:
             PMA_HOST: db

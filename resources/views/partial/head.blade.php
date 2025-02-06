@@ -37,6 +37,15 @@
     <link rel="stylesheet" href="vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <!-- Page CSS -->
+    <style>
+      .dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          display: inline-block;
+          margin-right: 5px;
+      }
+    </style>
 
     <!-- Helpers -->
     <script src="vendor/js/helpers.js"></script>

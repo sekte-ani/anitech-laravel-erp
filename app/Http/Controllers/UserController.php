@@ -83,9 +83,12 @@ class UserController extends Controller
         $validatedData['password'] = Hash::make($request->password);
     }
 
-    public function destroy($id)
+    public function destroy(string $id)
     {
-        //
+        $deletedUser = User::find($id);
+        $deletedUser->delete();
+
+        return redirect()->back()->with('success', 'Data Karyawan Berhasil Dihapus');
     }
 
     public function checkSlugName(Request $request)

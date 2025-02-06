@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StructureController;
 use Illuminate\Support\Facades\Route;
@@ -14,14 +15,13 @@ use App\Http\Controllers\UserController;
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return view('content.dashboard');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/General-Product', function () {
         return view('content.general.general-product');
     })->name('product');
     
     Route::get('/General-Organization-Structure', [StructureController::class, 'index'])->name('organization');
+    Route::put('/General-Organization-Structure/update/{id}', [StructureController::class, 'update'])->name('role.update');
     
     Route::get('ANIs-Service-List', function () {
         return view('content.anis.anis-service-list');
@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/ERP-Operational-Employee', [UserController::class, 'index'])->name('emp');
     Route::post('/ERP-Operational-Employee/store', [UserController::class, 'store'])->name('emp.store');
+    Route::delete('/ERP-Operational-Employee/{id}', [UserController::class, 'destroy'])->name('emp.delete');
     
     Route::get('/ERP-Operational-Client', function () {
         return view('content.erp.erp-operational-client');

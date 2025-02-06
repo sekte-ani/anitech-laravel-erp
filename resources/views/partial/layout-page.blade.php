@@ -1,9 +1,23 @@
 @include ('partial.head')
+{{-- Role Color Start --}}
+@php
+    $roleColors = [
+        'Admin' => '#8B0000',  // Dark Red
+        'Founder' => '#FF4500',  // Orange Red
+        'Co-Founder' => '#1E90FF',  // Dodger Blue
+        'Developer' => '#32CD32',  // Lime Green
+        'Designer' => '#FF69B4',  // Hot Pink
+        'User' => '#FFD700',  // Gold
+    ];
+@endphp
+{{-- Role Color End --}}
+
 <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
 
         @include('partial.sidebar')
+        @include('sweetalert::alert')
 
         <!-- Layout container -->
         <div class="layout-page">
@@ -66,8 +80,13 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <h6 class="mb-0">John Doe</h6>
-                            <small class="text-muted">Admin</small>
+                            <h6 class="mb-0">{{ Auth::user()->name }}</h6>
+                            @foreach (Auth::user()->roles as $role)
+                                <span class="d-inline-flex align-items-center">
+                                    <span class="dot" style="background-color: {{ $roleColors[$role->name] ?? '#6c757d' }};"></span>
+                                    {{ $role->name }}
+                                </span>
+                            @endforeach
                           </div>
                         </div>
                       </a>

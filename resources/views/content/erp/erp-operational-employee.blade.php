@@ -73,12 +73,12 @@
                   <i class="bx bx-dots-vertical-rounded"></i>
                 </button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="javascript:void(0);"
-                    ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                  >
-                  <a class="dropdown-item" href="javascript:void(0);"
-                    ><i class="bx bx-trash me-1"></i> Delete</a
-                  >
+                    <a class="dropdown-item" href="javascript:void(0);"
+                        ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                    >
+                    <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="setDeleteUrl('{{ route('emp.delete', $u->id) }}')"
+                        ><i class="bx bx-trash me-1"></i> Delete</a
+                    >
                 </div>
               </div>
             </td>
@@ -141,7 +141,7 @@
                     <option value="{{ $r->id }}">{{ $r->name }}</option>
                     @endif
                     @endforeach
-                    </select>              
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="images" class="form-label">Foto Karyawan</label>
@@ -170,6 +170,28 @@
     </div>
   </div>
 
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this user?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="delete-form" method="POST" action="" style="display: inline-block;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
   <script>
     const name = document.querySelector('#name');
     const slug = document.querySelector('#slug');
@@ -193,5 +215,9 @@
           imgPreview.src = oFREvent.target.result;
         }
       }
+
+    function setDeleteUrl(url) {
+        document.getElementById('delete-form').action = url;
+    }
 </script>
 @endsection

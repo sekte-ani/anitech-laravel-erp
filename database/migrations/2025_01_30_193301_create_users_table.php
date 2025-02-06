@@ -18,9 +18,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('confirm_password')->default('anitech123');
             $table->unsignedBigInteger('role_id');
             $table->string('images')->nullable();
             $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->enum('status', ['Active', 'Non-Active'])->default('Non-Active');
             $table->rememberToken();
             $table->timestamps();
 

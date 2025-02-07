@@ -9,16 +9,22 @@
           <tr>
             <th>#</th>
             <th>Nama</th>
+            <th>Divisi</th>
             <th>Role</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
-            @foreach($role_user->unique('user_id') as $ru)
+            @foreach($role_user->unique('employee_id') as $ru)
             @if ($ru->role->name != 'Admin')
                 <tr>
                     <td>{{ $loop->iteration - 1 }}</td>
                     <td>{{ $ru->employee->name }}</td>
+                    <td>
+                        @foreach ($ru->employee->divisions as $division)
+                            <span class="badge bg-primary">{{ $division->name }}</span>
+                        @endforeach
+                    </td>
                     <td>
                         @foreach ($ru->employee->roles as $role)
                             <span class="badge bg-primary">{{ $role->name }}</span>
@@ -53,10 +59,30 @@
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
+                            <label class="form-label">Divisi</label>
+                            <div class="row">
+                                @foreach ($divisions as $index => $d)
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="division_id[]" value="{{ $d->id }}" 
+                                                @if(in_array($d->id, $ru->employee->divisions->pluck('id')->toArray())) checked @endif>
+                                            <label class="form-check-label">
+                                                {{ $d->name }}
+                                            </label>
+                                        </div>
+                                    </div>
+                        
+                                    @if (($index + 1) % 5 == 0)
+                                        </div><div class="row">
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Role</label>
                             <div class="row">
                                 @foreach ($roles as $index => $r)
-                                    <div class="col-md-2">
+                                    <div class="col-md-6">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="role_id[]" value="{{ $r->id }}" 
                                                 @if(in_array($r->id, $ru->employee->roles->pluck('id')->toArray())) checked @endif>
@@ -71,7 +97,7 @@
                                     @endif
                                 @endforeach
                             </div>
-                        </div>                        
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>

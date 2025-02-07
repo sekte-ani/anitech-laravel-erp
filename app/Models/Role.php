@@ -13,8 +13,8 @@ class Role extends Model
 
     protected $guarded = ['id'];
 
-    public function users()
+    public function employees()
     {
-        return $this->belongsToMany(User::class, 'role_user');
+        return $this->belongsToMany(Employee::class, 'role_employee');
     }
 }

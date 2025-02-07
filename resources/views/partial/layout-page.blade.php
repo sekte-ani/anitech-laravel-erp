@@ -80,8 +80,8 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <h6 class="mb-0">{{ Auth::user()->name }}</h6>
-                            @foreach (Auth::user()->roles as $role)
+                            <h6 class="mb-0">{{ Auth::user()->employee->name }}</h6>
+                            @foreach (Auth::user()->employee->roles as $role)
                                 <span class="d-inline-flex align-items-center">
                                     <span class="dot" style="background-color: {{ $roleColors[$role->name] ?? '#6c757d' }};"></span>
                                     {{ $role->name }}

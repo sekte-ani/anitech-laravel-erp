@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="card">
-    <h5 class="card-header">Organization Structure</h5>
+    <h5 class="card-header bg-primary text-white">Organization Structure</h5>
     <div class="table-responsive text-nowrap">
       <table class="table">
-        <thead class="table-light">
+        <thead class="table-primary">
           <tr>
             <th>#</th>
             <th>Nama</th>
@@ -18,15 +18,15 @@
             @if ($ru->role->name != 'Admin')
                 <tr>
                     <td>{{ $loop->iteration - 1 }}</td>
-                    <td>{{ $ru->user->name }}</td>
+                    <td>{{ $ru->employee->name }}</td>
                     <td>
-                        @foreach ($ru->user->roles as $role)
+                        @foreach ($ru->employee->roles as $role)
                             <span class="badge bg-primary">{{ $role->name }}</span>
                         @endforeach
                     </td>
                     <td>
                         <div>
-                            <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editRoleModal{{ $ru->user->id }}"
+                            <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editRoleModal{{ $ru->employee->id }}"
                                 ><i class="bx bx-edit-alt me-1"></i> Edit</button
                             >
                         </div>
@@ -41,15 +41,15 @@
   </div>
 
   @foreach ($role_user as $ru)
-    <div class="modal fade" id="editRoleModal{{ $ru->user->id }}" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editRoleModal{{ $ru->employee->id }}" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editRoleModalLabel">Edit Role for {{ $ru->user->name }}</h5>
+                    <h5 class="modal-title" id="editRoleModalLabel">Edit Role for {{ $ru->employee->name }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('role.update', $ru->user->id) }}" method="POST">
+                    <form action="{{ route('role.update', $ru->employee->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
@@ -59,7 +59,7 @@
                                     <div class="col-md-2">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="role_id[]" value="{{ $r->id }}" 
-                                                @if(in_array($r->id, $ru->user->roles->pluck('id')->toArray())) checked @endif>
+                                                @if(in_array($r->id, $ru->employee->roles->pluck('id')->toArray())) checked @endif>
                                             <label class="form-check-label">
                                                 {{ $r->name }}
                                             </label>

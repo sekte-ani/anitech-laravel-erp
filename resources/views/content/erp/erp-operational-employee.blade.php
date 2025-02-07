@@ -1,13 +1,8 @@
 @extends('partial.layout-page', ['title' => 'ERP-Operational-Client'])
 
 @section('content')
-<div class="d-flex justify-content-end my-3">
-    <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#employeeModal">Add Employee</button>
-</div>
-
- <!-- Bootstrap Table with Header - Light -->
- <div class="card">
-    <h5 class="card-header">Employee List</h5>
+<div class="card">
+    <h5 class="card-header">User List</h5>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead class="table-light">
@@ -15,50 +10,26 @@
             <th>#</th>
             <th>Name</th>
             <th>Email</th>
-            @if (Auth::user()->roles[0]->name == 'Admin')
+            @if (Auth::user()->employee->roles[0]->name == 'Admin')
             <th>Password</th>
             @endif
             <th>Role</th>
-            <th>Images</th>
-            <th>Phone</th>
-            <th>Address</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
           @foreach ($users as $u)
-          @if ($u->roles->contains('name', 'Admin') == false)
+          @if ($u->employee->roles->contains('name', 'Admin') == false)
           <tr>
             <td>{{ $loop->iteration - 1 }}</td>
-            <td>{{ $u->name }}</td>
+            <td>{{ $u->employee->name }}</td>
             <td>{{ $u->email }}</td>
             <td>{{ $u->confirm_password }}</td>
             <td>
-                @foreach ($u->roles as $role)
+                @foreach ($u->employee->roles as $role)
                     <span class="badge bg-primary">{{ $role->name }}</span>
                 @endforeach
-            </td>
-            <td>
-                @if ($u->images)
-                    <img src="{{ env('STORAGE_URL') . $u->images }}" style="object-fit: cover; width: 100%; height: 100px; max-width: 200px;" class="card-img" alt="...">
-                @else
-                    <img src="https://picsum.photos/seed/nophoto" style="object-fit: cover; width: 100%; height: 100px; max-width: 200px;" class="card-img" alt="...">
-                @endif
-            </td>
-            <td>
-                @if ($u->phone != null)
-                    {{ $u->phone }}
-                @else
-                    -
-                @endif
-            </td>
-            <td>
-                @if ($u->address != null)
-                    {{ $u->address }}
-                @else
-                    -
-                @endif
             </td>
             <td>
                 @if ($u->status == 'Active')
@@ -88,6 +59,98 @@
         </tbody>
       </table>
       {{ $users->withQueryString()->links() }}
+    </div>
+  </div>
+
+<div class="d-flex justify-content-end my-3">
+    <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#employeeModal">Add Employee</button>
+</div>
+
+ <!-- Bootstrap Table with Header - Light -->
+ <div class="card">
+    <h5 class="card-header">Employee List</h5>
+    <div class="table-responsive text-nowrap">
+      <table class="table">
+        <thead class="table-light">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Division</th>
+            <th>Images</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Bank Name</th>
+            <th>Bank Account</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+          @foreach ($employees as $e)
+          @if ($e->roles->contains('name', 'Admin') == false)
+          <tr>
+            <td>{{ $loop->iteration - 1 }}</td>
+            <td>{{ $e->name }}</td>
+            <td>
+                @foreach ($e->divisions as $division)
+                    <span class="badge bg-primary">{{ $division->name }}</span>
+                @endforeach
+            </td>
+            <td>
+                @if ($e->images)
+                    <img src="{{ env('STORAGE_URL') . $e->images }}" style="object-fit: cover; width: 100%; height: 100px; max-width: 200px;" class="card-img" alt="...">
+                @else
+                    <img src="https://picsum.photos/seed/nophoto" style="object-fit: cover; width: 100%; height: 100px; max-width: 200px;" class="card-img" alt="...">
+                @endif
+            </td>
+            <td>
+                @if ($e->phone != null)
+                    {{ $e->phone }}
+                @else
+                    -
+                @endif
+            </td>
+            <td>
+                @if ($e->address != null)
+                    {{ $e->address }}
+                @else
+                    -
+                @endif
+            </td>
+            <td>
+                @if ($e->bank_name != null)
+                    {{ $e->bank_name }}
+                @else
+                    -
+                @endif
+            </td>
+            <td>
+                @if ($e->bank_account != null)
+                    {{ $e->bank_account }}
+                @else
+                    -
+                @endif
+            </td>
+            <td>
+              <div class="dropdown">
+                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                  <i class="bx bx-dots-vertical-rounded"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:void(0);"
+                        ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                    >
+                    <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="setDeleteUrl('{{ route('emp.delete', $u->id) }}')"
+                        ><i class="bx bx-trash me-1"></i> Delete</a
+                    >
+                </div>
+              </div>
+            </td>
+          </tr>
+          @endif
+          @endforeach
+        </tbody>
+      </table>
+      {{ $employees->withQueryString()->links() }}
     </div>
   </div>
   <!-- Bootstrap Table with Header - Light -->
@@ -129,6 +192,19 @@
                         {{ $message }}
                         </div>
                     @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="division_id" class="form-label">Divisi</label>
+                    <select class="form-select" name="division_id" required>
+                    <option value="" disabled selected>--- Pilih Divisi ---</option>
+                    @foreach ($divisions as $d)
+                    @if (old('division_id') == $d->id)
+                        <option value="{{ $d->id }}" selected>{{ $d->name }}</option>
+                    @else
+                    <option value="{{ $d->id }}">{{ $d->name }}</option>
+                    @endif
+                    @endforeach
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="role_id" class="form-label">Role</label>

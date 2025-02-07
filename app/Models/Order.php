@@ -17,4 +17,9 @@ class Order extends Model
     {
         return $this->hasMany(Invoice::class);
     }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
 }

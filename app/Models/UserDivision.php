@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class RoleUser extends Model
+class UserDivision extends Model
 {
     use HasFactory;
 
-    protected $table = 'role_employee';
+    protected $table = 'user_division';
 
     protected $guarded = ['id'];
 
@@ -18,8 +18,8 @@ class RoleUser extends Model
         return $this->belongsTo(Employee::class);
     }
     
-    public function role()
+    public function division()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Division::class);
     }
 }

@@ -7,15 +7,15 @@
 
  <!-- Bootstrap Table with Header - Light -->
  <div class="card">
-  <h5 class="card-header bg-primary text-white">Product List</h5>
+  <h5 class="card-header">Hoverable rows</h5>
   <div class="table-responsive text-nowrap">
-    <table class="table">
-      <thead class="table-primary">
+    <table class="table table-hover">
+      <thead>
         <tr>
-          <th>Product Name</th>
-          <th>Slug</th>
-          <th>Description</th>
-          <th>Images</th>
+          <th>Project</th>
+          <th>Client</th>
+          <th>Users</th>
+          <th>Status</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -25,7 +25,7 @@
           <td>Albert Cook</td>
           <td>
             <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
-              {{-- <li
+              <li
                 data-bs-toggle="tooltip"
                 data-popup="tooltip-custom"
                 data-bs-placement="top"
@@ -48,7 +48,7 @@
                 class="avatar avatar-xs pull-up"
                 title="Christina Parker">
                 <img src="img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-              </li> --}}
+              </li>
             </ul>
           </td>
           <td><span class="badge bg-label-primary me-1">Active</span></td>

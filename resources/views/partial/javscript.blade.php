@@ -10,11 +10,13 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
+    <script src="vendor/libs/apex-charts/apexcharts.js"></script>
 
     <!-- Main JS -->
     <script src="js/main.js"></script>
 
     <!-- Page JS -->
+    <script src="js/dashboards-analytics.js"></script>
 
     <!-- Place this tag before closing body tag for github widget button. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

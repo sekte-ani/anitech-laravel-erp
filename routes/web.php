@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StructureController;
 use Illuminate\Support\Facades\Route;
@@ -16,9 +17,10 @@ use App\Http\Controllers\UserController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/General-Product', function () {
-        return view('content.general.general-product');
-    })->name('product');
+
+    Route::get('/General-Product', [ProductController::class, 'index'])->name('product');
+    Route::post('/General-Product', [ProductController::class, 'store'])->name('product.store');
+    Route::delete('/General-Product', [ProductController::class, 'destroy'])->name('product.delete');
     
     Route::get('/General-Organization-Structure', [StructureController::class, 'index'])->name('organization');
     Route::put('/General-Organization-Structure/update/{id}', [StructureController::class, 'update'])->name('role.update');

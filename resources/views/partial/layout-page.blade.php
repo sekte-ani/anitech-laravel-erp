@@ -1,23 +1,9 @@
 @include ('partial.head')
-{{-- Role Color Start --}}
-@php
-    $roleColors = [
-        'Admin' => '#8B0000',  // Dark Red
-        'Founder' => '#FF4500',  // Orange Red
-        'Co-Founder' => '#1E90FF',  // Dodger Blue
-        'Developer' => '#32CD32',  // Lime Green
-        'Designer' => '#FF69B4',  // Hot Pink
-        'User' => '#FFD700',  // Gold
-    ];
-@endphp
-{{-- Role Color End --}}
-
 <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
 
         @include('partial.sidebar')
-        @include('sweetalert::alert')
 
         <!-- Layout container -->
         <div class="layout-page">

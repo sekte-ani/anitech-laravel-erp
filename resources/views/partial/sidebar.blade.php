@@ -1,3 +1,4 @@
+
 <!-- Menu -->
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
@@ -26,27 +27,27 @@
     {{-- Dashhboard --}}
 
     <li class="menu-item ">
-      <a href="/" class="bg-primary rounded menu-link">
-        <i class="menu-icon tf-icons bx bx-home-smile text-white"></i>
-        <div class="text-truncate text-white" data-i18n="Dashboards">Dashboards</div>
+      <a href="/" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-home-smile "></i>
+        <div class="text-truncate " data-i18n="Dashboards">Dashboards</div>
         
       </a>
     </li>
     <!-- General -->
     <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle bg-primary rounded text-white">
-        <i class="menu-icon tf-icons bx bx-briefcase-alt-2 text-white"></i>
-        <div class="text-truncate text-white" data-i18n="Dashboards">General</div>
+      <a href="javascript:void(0);" class="menu-link menu-toggle ">
+        <i class="menu-icon tf-icons bx bx-briefcase-alt-2 "></i>
+        <div class="text-truncate " data-i18n="Dashboards">General</div>
         
       </a>
       <ul class="menu-sub">
         <li class="menu-item">
-          <a href="{{ route('product') }}" class="menu-link bg-secondary text-white">
+          <a href="{{ route('product') }}" class="menu-link  ">
             <div class="text-truncate" data-i18n="Analytics">Product</div>
           </a>
         </li>
         <li class="menu-item">
-          <a href="{{ route('organization') }}" class="menu-link bg-secondary text-white">
+          <a href="{{ route('organization') }}" class="menu-link  ">
             <div class="text-truncate" data-i18n="Analytics">Organization Structure</div>
           </a>
         </li>
@@ -55,24 +56,24 @@
 
     <!-- Anis -->
     <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle bg-primary rounded text-white">
-        <i class="menu-icon tf-icons bx bx-book-open text-white"></i>
-        <div class="text-truncate text-white" data-i18n="Layouts">ANIs</div>
+      <a href="javascript:void(0);" class="menu-link menu-toggle ">
+        <i class="menu-icon tf-icons bx bx-book-open "></i>
+        <div class="text-truncate " data-i18n="Layouts">ANIs</div>
       </a>
 
       <ul class="menu-sub">
         <li class="menu-item">
-          <a href="{{ route('service') }}" class="menu-link bg-secondary text-white">
+          <a href="{{ route('service') }}" class="menu-link  ">
             <div class="text-truncate" data-i18n="Without menu">Service List</div>
           </a>
         </li>
         <li class="menu-item">
-          <a href="{{ route('package') }}" class="menu-link bg-secondary text-white">
+          <a href="{{ route('package') }}" class="menu-link  ">
             <div class="text-truncate" data-i18n="Without navbar">Package(Price,Information)</div>
           </a>
         </li>
         <li class="menu-item">
-          <a href="{{ route('portfolio') }}" class="menu-link bg-secondary text-white">
+          <a href="{{ route('portfolio') }}" class="menu-link  ">
             <div class="text-truncate" data-i18n="Fluid">Portfolio</div>
           </a>
         </li>
@@ -80,15 +81,15 @@
     </li>
     {{-- ERP --}}
     <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle bg-primary rounded text-white">
-        <i class="menu-icon tf-icons bx bx-copy-alt text-white"></i>
-        <div class="text-truncate text-white" data-i18n="Dashboards">ERP</div>
+      <a href="javascript:void(0);" class="menu-link menu-toggle ">
+        <i class="menu-icon tf-icons bx bx-copy-alt "></i>
+        <div class="text-truncate " data-i18n="Dashboards">ERP</div>
 
       </a>
       {{-- Finance Sub Menu --}}
       <ul class="menu-sub">
         <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle bg-secondary text-white">
+          <a href="javascript:void(0);" class="menu-link menu-toggle  ">
             <div class="text-truncate" data-i18n="Analytics">Finance</div>
           </a>
           <ul class="menu-sub">
@@ -111,7 +112,7 @@
         </li>
         {{-- Operational Needs Sub Menu --}}
         <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle bg-secondary text-white">
+          <a href="javascript:void(0);" class="menu-link menu-toggle  ">
             <div class="text-truncate" data-i18n="Analytics">Operational Needs</div>
           </a>
           <ul class="menu-sub">

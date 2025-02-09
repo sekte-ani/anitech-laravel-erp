@@ -85,56 +85,56 @@
         <i class="menu-icon tf-icons bx bx-copy-alt "></i>
         <div class="text-truncate " data-i18n="Dashboards">ERP</div>
 
-        </a>
-        {{-- Finance Sub Menu --}}
-        <ul class="menu-sub">
-          <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <div class="text-truncate" data-i18n="Analytics">Finance</div>
-            </a>
-            <ul class="menu-sub">
-              <li class="menu-item">
-                <a href="{{ route('expanses') }}" class="menu-link">
-                  <div class="text-truncate" data-i18n="Fluid">Expanses Tracker</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="{{ route('audit') }}" class="menu-link">
-                  <div class="text-truncate" data-i18n="Fluid">Finance Audit</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="{{ route('invoicing') }}" class="menu-link">
-                  <div class="text-truncate" data-i18n="Fluid">Invoicing</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-          {{-- Operational Needs Sub Menu --}}
-          <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <div class="text-truncate" data-i18n="Analytics">Operational Needs</div>
-            </a>
-            <ul class="menu-sub">
-              <li class="menu-item">
-                <a href="{{ route('emp') }}" class="menu-link">
-                  <div class="text-truncate" data-i18n="Fluid">Employee Data</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="{{ route('client') }}" class="menu-link">
-                  <div class="text-truncate" data-i18n="Fluid">Client Data</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="{{ route('progress') }}" class="menu-link">
-                  <div class="text-truncate" data-i18n="Fluid">Client Progress</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </aside>
-  <!-- / Menu -->
+      </a>
+      {{-- Finance Sub Menu --}}
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle  ">
+            <div class="text-truncate" data-i18n="Analytics">Finance</div>
+          </a>
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="{{ route('expanses') }}" class="menu-link">
+                <div class="text-truncate" data-i18n="Fluid">Expanses Tracker</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{ route('audit') }}" class="menu-link">
+                <div class="text-truncate" data-i18n="Fluid">Finance Audit</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{ route('invoicing') }}" class="menu-link">
+                <div class="text-truncate" data-i18n="Fluid">Invoicing</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+        {{-- Operational Needs Sub Menu --}}
+        <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle  ">
+            <div class="text-truncate" data-i18n="Analytics">Operational Needs</div>
+          </a>
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="{{ route('emp') }}" class="menu-link">
+                <div class="text-truncate" data-i18n="Fluid">Employee Data</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{ route('client') }}" class="menu-link">
+                <div class="text-truncate" data-i18n="Fluid">Client Data</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{ route('progress') }}" class="menu-link">
+                <div class="text-truncate" data-i18n="Fluid">Client Progress</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</aside>
+<!-- / Menu -->

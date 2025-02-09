@@ -25,7 +25,7 @@
                   <i class="bx bx-search bx-md"></i>
                   <input
                     type="text"
-                    class="form-control border-0 shadow-none ps-1 ps-sm-2"
+                    class="form-control border-0 shadow-none ps-1 ps-sm-2 border-2"
                     placeholder="Search..."
                     aria-label="Search..." />
                 </div>

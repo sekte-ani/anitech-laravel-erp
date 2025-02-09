@@ -1,4 +1,4 @@
-~~@extends('partial.layout-page', ['title' => 'General-Product'])
+@extends('partial.layout-page', ['title' => 'General-Product'])
 
 @section('content')
 <div class="d-flex justify-content-end my-3">
@@ -7,10 +7,10 @@
 
  <!-- Bootstrap Table with Header - Light -->
  <div class="card">
-  <h5 class="card-header bg-primary text-white">Product List</h5>
+  <h5 class="card-header">Product List</h5>
   <div class="table-responsive text-nowrap">
     <table class="table table-hover">
-      <thead class="table-primary">
+      <thead>
         <tr>
           <th>#</th>
           <th>Name</th>
@@ -102,7 +102,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Add</button>
             </div>
         </form>

@@ -4,7 +4,7 @@
 <div class="card">
     <h5 class="card-header bg-primary text-white">Organization Structure</h5>
     <div class="table-responsive text-nowrap">
-      <table class="table">
+      <table class="table table-hover">
         <thead class="table-primary">
           <tr>
             <th>#</th>

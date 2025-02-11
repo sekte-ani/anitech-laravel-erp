@@ -1,10 +1,11 @@
+
 @extends('partial.layout-page', ['title' => 'ERP-Operational-Client'])
 
 @section('content')
 <div class="card">
     <h5 class="card-header">User List</h5>
     <div class="table-responsive text-nowrap">
-      <table class="table">
+      <table class="table table-hover">
         <thead class="table-light">
           <tr>
             <th>#</th>
@@ -70,7 +71,7 @@
  <div class="card">
     <h5 class="card-header">Employee List</h5>
     <div class="table-responsive text-nowrap">
-      <table class="table">
+      <table class="table table-hover">
         <thead class="table-light">
           <tr>
             <th>#</th>

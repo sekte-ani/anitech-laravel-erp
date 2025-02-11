@@ -65,8 +65,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkSlugName', [UserController::class, 'checkSlugName']);
 });
 
-
-
 require __DIR__.'/auth.php';
 
 

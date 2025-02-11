@@ -1,6 +1,4 @@
-
 <!-- Menu -->
-
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
   <div class="app-brand demo">
     <a href="index.html" class="app-brand-link">
@@ -17,7 +15,7 @@
           
 
       </span>
-      <span class="app-brand-text demo menu-text fw-bold ms-2">ANI-ERP</span>
+      <span class="app-brand-text demo menu-text fw-bold ms-2">A.N.I-ERP</span>
     </a>
 
   </div>
@@ -35,7 +33,7 @@
     </li>
     <!-- General -->
     <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle ">
+      <a href="javascript:void(0);" class="menu-link menu-toggle open ">
         <i class="menu-icon tf-icons bx bx-briefcase-alt-2 "></i>
         <div class="text-truncate " data-i18n="Dashboards">General</div>
         
@@ -56,9 +54,9 @@
 
     <!-- Anis -->
     <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle ">
+      <a href="javascript:void(0)" class="menu-link menu-toggle ">
         <i class="menu-icon tf-icons bx bx-book-open "></i>
-        <div class="text-truncate " data-i18n="Layouts">ANIs</div>
+        <div class="text-truncate " data-i18n="Layouts">A.N.I.S</div>
       </a>
 
       <ul class="menu-sub">

@@ -1,3 +1,4 @@
+
 @extends('partial.layout-page', ['title' => 'ANIs-Service-List'])
 
 @section('content')
@@ -9,7 +10,7 @@
  <div class="card">
   <h5 class="card-header bg-primary text-white">Product List</h5>
   <div class="table-responsive text-nowrap">
-    <table class="table">
+    <table class="table table-hover">
       <thead class="table-primary">
         <tr>
           <th>Product Name</th>

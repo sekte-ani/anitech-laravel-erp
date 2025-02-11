@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('packages', function (Blueprint $table) {
+        Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('service_id')->constrained()->cascadeOnDelete();
             $table->string('name');
-            $table->string('name_slug');
-            $table->integer('price');
-            $table->integer('discount_price')->default(0);
-            $table->text('features');
+            $table->string('job');
+            $table->string('message');
             $table->string('image')->nullable();
             $table->foreignId('created_by')->constrained('users')->noActionOnDelete();
             $table->foreignId('updated_by')->constrained('users')->noActionOnDelete();
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('packages');
+        Schema::dropIfExists('testimonials');
     }
 };

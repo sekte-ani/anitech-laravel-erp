@@ -1,4 +1,4 @@
-@include ('partial.head')
+@include('partial.head')
 <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -133,4 +133,4 @@
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-    @include('partial.javscript')
+@include('partial.javscript')

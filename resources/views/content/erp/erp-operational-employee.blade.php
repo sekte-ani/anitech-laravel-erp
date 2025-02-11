@@ -98,7 +98,7 @@
             </td>
             <td>
                 @if ($e->images)
-                    <img src="{{ asset('storage/' . $p->images) }}" style="object-fit: cover; width: 100%; height: 100px; max-width: 200px;" class="card-img" alt="...">
+                    <img src="{{ asset('storage/' . $e->images) }}" style="object-fit: cover; width: 100%; height: 100px; max-width: 200px;" class="card-img" alt="...">
                 @else
                     <img src="https://picsum.photos/seed/nophoto" style="object-fit: cover; width: 100%; height: 100px; max-width: 200px;" class="card-img" alt="...">
                 @endif

@@ -55,7 +55,7 @@ class UserController extends Controller
             $defaultPassword = 'anitech123';
 
             $validatedData['images'] = $request->file('images') 
-            ? $request->file('images')->store('profile-images') 
+            ? $request->file('images')->store('profile-images', 'public') 
             : null;
 
             $employee = Employee::create([

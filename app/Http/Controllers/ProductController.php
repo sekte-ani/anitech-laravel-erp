@@ -33,7 +33,7 @@ class ProductController extends Controller
 
         $validatedData['description'] = $sanitasi;
         $validatedData['images'] = $request->file('images') 
-            ? $request->file('images')->store('product-images') 
+            ? $request->file('images')->store('product-images', 'public') 
             : null;
 
         Product::create($validatedData);

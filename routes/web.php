@@ -63,8 +63,19 @@ Route::middleware('auth')->group(function () {
     })->name('progress');
 
     Route::get('/checkSlugName', [UserController::class, 'checkSlugName']);
+
+
+
+    
+    
 });
 
+Route::get('/logintemp', function () {
+    return view('auth.login-temp');
+})->name('logintemp');
+Route::get('/forgottemp', function () {
+    return view('auth.forgot-password-temp');
+})->name('forgottemp');
 
 
 require __DIR__.'/auth.php';

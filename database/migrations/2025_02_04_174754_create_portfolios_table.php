@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('portfolios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('category_portfolios')->noActionOnDelete();
-            $table->string('title');
+            $table->string('name');
+            $table->string('name_slug');
             $table->text('description');
-            $table->string('client')->nullable();
             $table->string('url')->nullable();
-            $table->string('images')->nullable();
+            $table->string('image')->nullable();
             $table->foreignId('created_by')->constrained('users')->noActionOnDelete();
             $table->foreignId('updated_by')->constrained('users')->noActionOnDelete();
             $table->timestamps();

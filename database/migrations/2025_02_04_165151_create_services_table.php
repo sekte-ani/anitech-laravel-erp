@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('name_slug');
             $table->text('description');
-            $table->integer('price');
             $table->string('image');
             $table->foreignId('created_by')->constrained('users')->noActionOnDelete();
             $table->foreignId('updated_by')->constrained('users')->noActionOnDelete();

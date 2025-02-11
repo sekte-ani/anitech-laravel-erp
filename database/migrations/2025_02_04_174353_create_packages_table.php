@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('service_id')->constrained()->cascadeOnDelete();
             $table->string('name');
-            $table->text('description');
+            $table->string('name_slug');
+            $table->text('features');
             $table->integer('price');
-            $table->string('features')->nullable();
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->foreignId('created_by')->constrained('users')->noActionOnDelete();
             $table->foreignId('updated_by')->constrained('users')->noActionOnDelete();
             $table->timestamps();

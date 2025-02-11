@@ -11,8 +11,8 @@ class Portfolio extends Model
 
     protected $guarded = ['id'];
 
-    public function category()
+    public function services()
     {
-        return $this->belongsTo(CategoryPortfolio::class);
+        return $this->belongsToMany(Service::class);
     }
 }

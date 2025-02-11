@@ -15,4 +15,9 @@ class Service extends Model
     {
         return $this->hasMany(Package::class);
     }
+
+    public function portfolios()
+    {
+        return $this->belongsToMany(Portfolio::class);
+    }
 }

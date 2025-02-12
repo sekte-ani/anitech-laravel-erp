@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -19,12 +20,14 @@ class UserController extends Controller
         $users = User::with('employee')->orderBy('id', 'asc')->paginate(10);
         $roles = Role::where('name', '!=', 'Admin')->get();
         $divisions = Division::all();
+        $status = ['Active', 'Non-Active'];
 
         return view('content.erp.erp-operational-employee', compact([
             'employees',
             'users',
             'roles',
             'divisions',
+            'status',
         ]));
     }
 
@@ -85,30 +88,38 @@ class UserController extends Controller
         }
     }
 
-    public function edit($id)
-    {
-        //
-    }
-
     public function update(Request $request, $id)
     {
+        $employee = Employee::findOrFail($id);
+
         $validatedData = $request->validate([
             'name' => 'required|string',
             'slug' => 'required|string',
-            'email' => 'required|email|string|unique:users',
-            'password' => 'required|string|min:8',
-            'confirm_password' => 'required|string|same:password',
-            'role_id' => 'required',
             'images' => 'nullable|image|file|max:5120|mimes:jpeg,png,jpg',
-            'phone' => 'nullable|string',
+            'phone' => 'nullable',
+            'address' => 'nullable',
+            'bank_name' => 'nullable',
+            'bank_account' => 'nullable',
         ]);
-        $validatedData['password'] = Hash::make($request->password);
+
+        if($request->file('images')){
+            if($request->oldImage){
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['images'] = $request->file('images') 
+            ? $request->file('images')->store('profile-images', 'public') 
+            : null;
+        }
+
+        $employee->update($validatedData);
+
+        return redirect()->back()->with('success', 'Data Karyawan Berhasil Diubah');
     }
 
     public function destroy(string $id)
     {
-        $deletedUser = User::find($id);
-        $deletedUser->delete();
+        $deletedEmployee = Employee::findOrFail($id);
+        $deletedEmployee->delete();
 
         return redirect()->back()->with('success', 'Data Karyawan Berhasil Dihapus');
     }

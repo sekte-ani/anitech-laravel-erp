@@ -121,6 +121,7 @@
         <div class="modal-body">
             <form method="post" action="{{ route('product.update', $p->id) }}" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
                 <div class="mb-3">
                     <label for="name" class="form-label">Nama Produk</label>
                     <input type="text" autofocus value="{{ old('name', $p->name) }}" name="name" id="name" placeholder="Masukkan nama karyawan" class="form-control @error('name') is-invalid @enderror" required>

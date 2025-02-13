@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('image');
             $table->foreignId('created_by')->constrained('users')->noActionOnDelete();
-            $table->foreignId('updated_by')->constrained('users')->noActionOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->noActionOnDelete();
             $table->timestamps();
         });
     }

@@ -42,8 +42,8 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required', 'max:225'],
-            'description' => ['required', 'max:225'],
+            'name' => ['required', 'string', 'max:225'],
+            'description' => ['required', 'string', 'max:225'],
             'image' => ['required', 'image', 'max:2048'],
         ]);
 
@@ -72,8 +72,8 @@ class ServiceController extends Controller
     public function update(Service $service, Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required', 'max:225'],
-            'description' => ['required', 'max:225'],
+            'name' => ['required', 'string', 'max:225'],
+            'description' => ['required', 'string', 'max:225'],
             'image' => ['nullable', 'image', 'max:2048'],
         ]);
 

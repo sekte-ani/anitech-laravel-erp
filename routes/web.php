@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
@@ -19,6 +22,13 @@ use App\Http\Controllers\StructureController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    Route::resource('services', ServiceController::class);
+    Route::resource('packages', PackageController::class);
 
     Route::get('/General-Product', [ProductController::class, 'index'])->name('product');
     Route::post('/General-Product', [ProductController::class, 'store'])->name('product.store');

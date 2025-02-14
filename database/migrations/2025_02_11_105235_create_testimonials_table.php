@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('portfolios', function (Blueprint $table) {
+        Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('name_slug');
-            $table->text('description');
-            $table->string('url')->nullable();
+            $table->string('job');
+            $table->string('message');
             $table->string('image')->nullable();
             $table->foreignId('created_by')->constrained('users')->noActionOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->noActionOnDelete();
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('portfolios');
+        Schema::dropIfExists('testimonials');
     }
 };

@@ -11,3 +11,4 @@ class Testimonial extends Model
 
     protected $guarded = ['id'];
 }
+

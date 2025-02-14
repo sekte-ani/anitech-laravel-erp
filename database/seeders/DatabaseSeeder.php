@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Service;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Division;
@@ -19,7 +20,38 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $role = [
+            'Admin',
+            'Founder',
+            'Pimpinan Utama',
+            'Co-Founder',
+            'Pimpinan Tim Operasional',
+            'Pimpinan Tim Teknologi Informasi',
+            'Pimpinan Tim Produk',
+            'Pimpinan Tim Marketing',
+            'Staff Operasional',
+            'Staff Finance',
+            'Mobile Engineer',
+            'Back End Developer',
+            'Front End Developer',
+            'AI/ML Developer',
+        ];
+        $slug_role = [
+            'admin',
+            'founder',
+            'pimpinan-utama',
+            'co-founder',
+            'pimpinan-tim-operasional',
+            'pimpinan-tim-teknologi-informasi',
+            'pimpinan-tim-produk',
+            'pimpinan-tim-marketing',
+            'staff-operasional',
+            'staff-finance',
+            'mobile-engineer',
+            'back-end-developer',
+            'front-end-developer',
+            'ai-ml-developer',
+        ];
 
         $division = [
             'Manajemen Eksekutif',
@@ -87,6 +119,14 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        User::create([
+            'name' => 'admin',
+            'slug' => 'admin',
+            'email' => 'admin@mail.com',
+            'password' => bcrypt('admindummy123'),
+            'role_id' => 1
+        ]);
+          
         Employee::create([
             'name' => 'Super Admin',
             'slug' => 'super-admin',
@@ -110,5 +150,36 @@ class DatabaseSeeder extends Seeder
             'confirm_password' => 'admindummy123',
             'employee_id' => 1,
         ]);
+
+        $serviceNames = [
+            'Web Development',
+            'Mobile App Development',
+            'UI/UX Design',
+            'AI/ML'
+        ];
+
+        $serviceDescriptions = [
+            'We specialize in developing innovative mobile applications for Android platforms, ensuring seamless performance and engaging user experiences.',
+            'From concept to launch, we create stunning websites that are not only visually impressive but also highly functional and user-friendly.',
+            'Our team of designers is dedicated to creating intuitive and visually appealing interfaces that enhance user engagement and satisfaction.',
+            'Leverage the power of AI and Machine Learning to drive innovation, optimize operations, and unlock valuable insights.'
+        ];
+
+        $serviceImages = [
+            'services/anis-1.png',
+            'services/anis-2.png',
+            'services/anis-3.png',
+            'services/anis-4.png'
+        ];
+
+        foreach ($serviceNames as $index => $serviceName){
+            Service::insert([
+                'name' => $serviceName,
+                'name_slug' => str()->slug($serviceName),
+                'description' =>  $serviceDescriptions[$index],
+                'image' => $serviceImages[$index],
+                'created_by' => 1,
+            ]);
+        }
     }
 }

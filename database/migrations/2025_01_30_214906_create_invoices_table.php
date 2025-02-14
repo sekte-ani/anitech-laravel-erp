@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('total', 20, 2);
             $table->decimal('amount_due', 20, 2);
             $table->string('notes')->nullable();
+            $table->enum('status', ['Pending', 'Paid', 'Cancelled'])->default('Pending');
             $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');

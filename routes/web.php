@@ -20,7 +20,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/General-Product', [ProductController::class, 'index'])->name('product');
     Route::post('/General-Product', [ProductController::class, 'store'])->name('product.store');
-    Route::delete('/General-Product', [ProductController::class, 'destroy'])->name('product.delete');
+    Route::put('/General-Product/{id}', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('/General-Product/{id}', [ProductController::class, 'destroy'])->name('product.delete');
     
     Route::get('/General-Organization-Structure', [StructureController::class, 'index'])->name('organization');
     Route::put('/General-Organization-Structure/update/{id}', [StructureController::class, 'update'])->name('role.update');
@@ -52,6 +53,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/ERP-Operational-Employee', [UserController::class, 'index'])->name('emp');
     Route::post('/ERP-Operational-Employee/store', [UserController::class, 'store'])->name('emp.store');
+    Route::put('/ERP-Operational-Employee/update/{id}', [UserController::class, 'update'])->name('emp.update');
     Route::delete('/ERP-Operational-Employee/{id}', [UserController::class, 'destroy'])->name('emp.delete');
     
     Route::get('/ERP-Operational-Client', function () {
@@ -69,14 +71,6 @@ Route::middleware('auth')->group(function () {
     
     
 });
-
-Route::get('/logintemp', function () {
-    return view('auth.login-temp');
-})->name('logintemp');
-Route::get('/forgottemp', function () {
-    return view('auth.forgot-password-temp');
-})->name('forgottemp');
-
 
 require __DIR__.'/auth.php';
 

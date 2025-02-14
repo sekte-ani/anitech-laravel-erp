@@ -44,8 +44,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function roles()
+    public function employee()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsTo(related: Employee::class);
     }
 }

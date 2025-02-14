@@ -17,7 +17,7 @@ services:
 
     web:
         image: nginx:alpine
-        container_name: brini-nginx
+        container_name: anierp-nginx
         restart: unless-stopped
         ports:
             - "8003:80"
@@ -30,8 +30,10 @@ services:
     db:
         image: mysql:5.7
         platform: linux/amd64
-        container_name: brini-db
+        container_name: anierp-db
         restart: unless-stopped
+        ports:
+            - "3307:3306"
         environment:
             MYSQL_ROOT_PASSWORD: secret
             MYSQL_DATABASE: anierp
@@ -43,7 +45,7 @@ services:
     phpmyadmin:
         image: phpmyadmin:latest
         platform: linux/amd64
-        container_name: brini-phpmyadmin
+        container_name: anierp-phpmyadmin
         restart: unless-stopped
         environment:
             PMA_HOST: db

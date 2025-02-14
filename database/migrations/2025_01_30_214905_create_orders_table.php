@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->decimal('price', 20, 2);
             $table->decimal('amount', 20, 2);
-            $table->decimal('subtotal', 20, 2);
+            $table->enum('status', ['Pending', 'On Progress', 'Completed', 'Cancelled'])->default('Pending');
             $table->timestamps();
 
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');

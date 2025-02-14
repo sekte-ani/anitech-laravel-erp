@@ -125,6 +125,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@mail.com',
             'password' => bcrypt('admindummy123'),
             'role_id' => 1
+        ]);
           
         Employee::create([
             'name' => 'Super Admin',

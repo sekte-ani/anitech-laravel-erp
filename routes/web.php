@@ -87,7 +87,7 @@ Route::middleware('auth')->group(function () {
     })->name('connection');
     
     
-});
+
 
 
 Route::get('/Profile', function () {

@@ -66,11 +66,23 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/checkSlugName', [UserController::class, 'checkSlugName']);
 
+    Route::get('/Profile', function () {
+        return view('content.profil.profil-edit');
+    })->name('profil');
 
-
+    Route::get('/Profile-Connection', function () {
+        return view('content.profil.profil-connection');
+    })->name('connection');
     
     
 });
+
+
+Route::get('/Profile', function () {
+    return view('content.profil.profil-edit');
+})->name('profil');
+
+
 
 require __DIR__.'/auth.php';
 

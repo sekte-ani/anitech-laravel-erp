@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Package;
 use App\Models\Service;
 use App\Models\Role;
 use App\Models\User;
@@ -77,39 +78,6 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $role = [
-            'Admin',
-            'Founder',
-            'Pimpinan Utama',
-            'Co-Founder',
-            'Pimpinan Tim Operasional',
-            'Pimpinan Tim Teknologi Informasi',
-            'Pimpinan Tim Produk',
-            'Pimpinan Tim Marketing',
-            'Staff Operasional',
-            'Staff Finance',
-            'Mobile Engineer',
-            'Back End Developer',
-            'Front End Developer',
-            'AI/ML Developer',
-        ];
-        $slug_role = [
-            'admin',
-            'founder',
-            'pimpinan-utama',
-            'co-founder',
-            'pimpinan-tim-operasional',
-            'pimpinan-tim-teknologi-informasi',
-            'pimpinan-tim-produk',
-            'pimpinan-tim-marketing',
-            'staff-operasional',
-            'staff-finance',
-            'mobile-engineer',
-            'back-end-developer',
-            'front-end-developer',
-            'ai-ml-developer',
-        ];
-
         foreach($role as $r){
             DB::table('roles')->insert([
                 'name' => $r,
@@ -119,14 +87,6 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        User::create([
-            'name' => 'admin',
-            'slug' => 'admin',
-            'email' => 'admin@mail.com',
-            'password' => bcrypt('admindummy123'),
-            'role_id' => 1
-        ]);
-          
         Employee::create([
             'name' => 'Super Admin',
             'slug' => 'super-admin',
@@ -172,6 +132,22 @@ class DatabaseSeeder extends Seeder
             'services/anis-4.png'
         ];
 
+        $packageNames = [
+            'Paket Basic',
+            'Paket Standar',
+            'Paket Professional'
+        ];
+
+        $packagePrices = [
+            '2500000',
+            '5000000',
+            '10000000'
+        ];
+
+        $packageFeatures = [
+            'Desain responsif'
+        ];
+
         foreach ($serviceNames as $index => $serviceName){
             Service::insert([
                 'name' => $serviceName,
@@ -180,6 +156,17 @@ class DatabaseSeeder extends Seeder
                 'image' => $serviceImages[$index],
                 'created_by' => 1,
             ]);
+
+            if($index < 3) {
+                Package::insert([
+                    'service_id' => $index + 1,
+                    'name' => $packageNames[$index],
+                    'name_slug' => str()->slug($packageNames[$index]),
+                    'price' => $packagePrices[$index],
+                    'features' => $packageFeatures[0],
+                    'created_by' => 1,
+                ]);
+            }
         }
     }
 }

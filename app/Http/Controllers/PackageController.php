@@ -74,6 +74,7 @@ class PackageController extends Controller
 
     public function edit(Package $package)
     {
+        $package->load('service');
         $services = Service::select('id','name','created_at')->latest()->get();
         return view('package.edit', compact('package','services'));
     }
@@ -92,13 +93,15 @@ class PackageController extends Controller
         if($request->hasFile('image')){
             $filePath = $this->uploadImage('packages', $request->file('image'));
 
-            if($filePath && $package->image){
-                $this->deleteImage($package->image);
-                $validated['image'] = $filePath;
-            }else{
+            if(!$filePath){
                 return redirect()->back()->with('error', 'Image upload failed.');
             }
 
+            if($package->image){
+                $this->deleteImage($package->image);
+            }
+
+            $validated['image'] = $filePath;
         }else{
             $validated['image'] = $package->image;
         }

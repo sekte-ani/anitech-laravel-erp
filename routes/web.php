@@ -9,19 +9,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StructureController;
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
-    Route::resource('services', ServiceController::class);
-    Route::resource('packages', PackageController::class);
-    Route::resource('portfolios', PortfolioController::class);
-    Route::resource('testimonials', TestimonialController::class);
+Route::middleware('auth')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/General-Product', [ProductController::class, 'index'])->name('product');
     Route::post('/General-Product', [ProductController::class, 'store'])->name('product.store');
@@ -42,7 +34,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/ANIs-Portfolio', function () {
         return view('content.anis.anis-portfolio');
     })->name('portfolio');
-
 
     Route::get('/ERP-Finance-Expanses-Tracker', function () {
         return view('content.erp.erp-finance-expanses');
@@ -73,6 +64,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/checkSlugName', [UserController::class, 'checkSlugName']);
     Route::get('/amount', [OrderController::class, 'amount']);
+
+    Route::resource('services', ServiceController::class);
+    Route::resource('packages', PackageController::class);
+    Route::resource('portfolios', PortfolioController::class);
+    Route::resource('testimonials', TestimonialController::class);
 });
 
 require __DIR__.'/auth.php';

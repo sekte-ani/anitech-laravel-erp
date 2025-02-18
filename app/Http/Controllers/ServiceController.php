@@ -9,23 +9,38 @@ use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
-    public function uploadImage($path, $image, $diskName = 'public')
+    public function uploadImages($path, $images, $diskName = 'public')
     {
-        $filePath = $image->store($path, $diskName);
-        return $filePath ?: false;
+        $filePaths = [];
+        foreach ($images as $image) {
+            $filePath = $image->store($path, $diskName);
+            if ($filePath) {
+                $filePaths[] = $filePath;
+            } else {
+                Log::warning('Failed to upload image: ' . $image->getClientOriginalName());
+            }
+        }
+        return $filePaths;
     }
-    public function deleteImage($image, $diskName = 'public')
+
+    public function deleteImages($images, $diskName = 'public')
     {
-        if($image && Storage::disk($diskName)->exists($image)){
-            Storage::disk($diskName)->delete($image);
-        }else{
-            Log::warning('Old service image: ' . $image . ' not found');
+        if (!is_array($images)) {
+            $images = json_decode($images, true);
+        }
+
+        foreach ($images as $image) {
+            if ($image && Storage::disk($diskName)->exists($image)) {
+                Storage::disk($diskName)->delete($image);
+            } else {
+                Log::warning('Old service image: ' . $image . ' not found');
+            }
         }
     }
+
     public function index()
     {
         $services = Service::latest()->get();
-
         return view('service.index', compact('services'));
     }
 
@@ -43,17 +58,18 @@ class ServiceController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:225'],
-            'description' => ['required', 'string', 'max:225'],
-            'image' => ['required', 'image', 'max:2048'],
+            'short_description' => ['required', 'string', 'max:225'],
+            'long_description' => ['required', 'string'],
+            'images.*' => ['required', 'image', 'max:2048'],
         ]);
 
-        $filePath = $this->uploadImage('services', $request->file('image'));
+        $filePaths = $this->uploadImages('services', $request->file('images'));
 
-        if(!$filePath){
+        if (empty($filePaths)) {
             return redirect()->back()->with('error', 'Image upload failed.');
         }
 
-        $validated['image'] = $filePath;
+        $validated['images'] = json_encode($filePaths);
         $validated['name_slug'] = str()->slug($validated['name']);
         $validated['created_by'] = auth()->id();
 
@@ -73,22 +89,24 @@ class ServiceController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:225'],
-            'description' => ['required', 'string', 'max:225'],
-            'image' => ['nullable', 'image', 'max:2048'],
+            'short_description' => ['required', 'string', 'max:225'],
+            'long_description' => ['required', 'string'],
+            'images.*' => ['nullable', 'image', 'max:2048'],
         ]);
 
-        if($request->hasFile('image')){
-            $filePath = $this->uploadImage('services', $request->file('image'));
+        $existingImages = json_decode($service->images, true) ?? [];
 
-            if($filePath){
-                $this->deleteImage($service->image);
-                $validated['image'] = $filePath;
-            }else{
+        if ($request->hasFile('images')) {
+            $filePaths = $this->uploadImages('services', $request->file('images'));
+
+            if (!empty($filePaths)) {
+                $this->deleteImages($existingImages);
+                $validated['images'] = json_encode($filePaths);
+            } else {
                 return redirect()->back()->with('error', 'Image upload failed.');
             }
-
-        }else{
-            $validated['image'] = $service->image;
+        } else {
+            $validated['images'] = json_encode($existingImages);
         }
 
         $validated['name_slug'] = str()->slug($validated['name']);
@@ -103,7 +121,7 @@ class ServiceController extends Controller
 
     public function destroy(Service $service)
     {
-        $this->deleteImage($service->image);
+        $this->deleteImages($service->images);
         $service->delete();
 
         return redirect()->route('services.index')->with(

@@ -127,6 +127,7 @@ class DatabaseSeeder extends Seeder
             'Leverage the power of AI and Machine Learning to drive innovation, optimize operations, and unlock valuable insights.'
         ];
 
+
         $serviceImages = [
             ['services/anis-1.1.png', 'services/anis-1.2.png'],
             ['services/anis-2.1.png', 'services/anis-2.2.png'],
@@ -156,7 +157,7 @@ class DatabaseSeeder extends Seeder
                 'name_slug' => str()->slug($serviceName),
                 'short_description' =>  $serviceDescriptions[$index],
                 'long_description' =>  $serviceDescriptions[$index],
-                'images' => $serviceImages[$index],
+                'images' => json_encode($serviceImages[$index]),
                 'created_by' => 1,
             ]);
 

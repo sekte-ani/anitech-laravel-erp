@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Package;
+use App\Models\Portfolio;
 use App\Models\Service;
 use App\Models\Role;
+use App\Models\Testimonial;
 use App\Models\User;
 use App\Models\Division;
 use App\Models\Employee;
@@ -126,10 +128,10 @@ class DatabaseSeeder extends Seeder
         ];
 
         $serviceImages = [
-            'services/anis-1.png',
-            'services/anis-2.png',
-            'services/anis-3.png',
-            'services/anis-4.png'
+            ['services/anis-1.1.png', 'services/anis-1.2.png'],
+            ['services/anis-2.1.png', 'services/anis-2.2.png'],
+            ['services/anis-3.1.png', 'services/anis-3.2.png'],
+            ['services/anis-4.1.png', 'services/anis-4.2.png'],
         ];
 
         $packageNames = [
@@ -152,8 +154,9 @@ class DatabaseSeeder extends Seeder
             Service::insert([
                 'name' => $serviceName,
                 'name_slug' => str()->slug($serviceName),
-                'description' =>  $serviceDescriptions[$index],
-                'image' => $serviceImages[$index],
+                'short_description' =>  $serviceDescriptions[$index],
+                'long_description' =>  $serviceDescriptions[$index],
+                'images' => $serviceImages[$index],
                 'created_by' => 1,
             ]);
 
@@ -167,6 +170,77 @@ class DatabaseSeeder extends Seeder
                     'created_by' => 1,
                 ]);
             }
+        }
+
+        $portfolioNames = [
+            'Pencatatan Transaksi Warteug',
+            'SYMALAS',
+            'Chef Kos-an',
+            'MyAbsen',
+            'LahanTani'
+        ];
+
+        $portfolioDescriptions = [
+            'Pencatatan Transaksi Warteug adalah untuk mempermudah owner dalam hal pencatatan stok yang tersedia dan pencatatan transaksi secara otomatis.',
+            'SYMALAS adalah applikasi mobile yang berguna untuk mempermudah antara dosen dan mahasiswa secara perkelas yang digunakan untuk mengumpulkann tugas.',
+            'Chef Kos-an adalah website untuk pengguna ketika mencari sebuah resep masak terutama target nya adalah anak kos.',
+            'MyAbsen adalah app mobile yang digunakan untuk mempermudah mengelola absen antara perusahaan dan pegawai.',
+            'Pencatatan Transaksi Warteug adalah untuk mempermudah owner dalam hal pencatatan stok yang tersedia dan pencatatan transaksi secara otomatis.'
+        ];
+
+        $portfolioImages = [
+            'portfolios/anis-1.png',
+            'portfolios/anis-2.png',
+            'portfolios/anis-3.png',
+            'portfolios/anis-4.png',
+            'portfolios/anis-5.png'
+        ];
+
+        foreach($portfolioNames as $index => $portfolioName) {
+            Portfolio::insert([
+                'name' => $portfolioName,
+                'name_slug' => str()->slug($portfolioName),
+                'description' => $portfolioDescriptions[$index],
+                'image' => $portfolioImages[$index],
+                'created_by' => 1
+            ]);
+
+            DB::table('portfolio_service')->insert([
+                'portfolio_id' => $index + 1,
+                'service_id' => 1,
+            ]);
+        }
+
+        $testimonialNames = [
+            'Adhitya Caesar',
+            'Rachel Siska',
+            'Nasir Lepkom'
+        ];
+
+        $testimonialJobs = [
+            'Information System Student'
+        ];
+
+        $testimonialMessages = [
+            'Engga late respond, komunikatif, mau setup meeting yang jelas dan kelihatan banget mau kita puas. Recommended untuk anak gundar',
+            'Hasil projectnya sesuai sama yang gue mau, cepet juga, komunikasinya oke banget, adain gmeet biar projectnya dapet arahan yang jelas, dikasih tau arahan yang baik gimana buat projectnya, kakaknya baik baik',
+            'Pengerjaannya cepet, kirain bakal ga kekejar dlnya tapi beberapa hari sebelum dl pun selesai, jadi sempet ngajuin revisi. Komunikasi oke, apa yang kudu ditanyain ditanya semua, jadi bisa minimalisir misunderstood. Overall good sih 9/10 lah yaa',
+        ];
+
+        $testimonialImages = [
+            'testimonials/anis-1.png',
+            'testimonials/anis-2.png',
+            'testimonials/anis-3.png',
+        ];
+
+        foreach($testimonialNames as $index => $testimonialName) {
+            Testimonial::create([
+                'name' => $testimonialName,
+                'job' => $testimonialJobs[0],
+                'message' => $testimonialMessages[$index],
+                'image' => $testimonialImages[$index],
+                'created_by' => 1,
+            ]);
         }
     }
 }

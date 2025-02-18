@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('name_slug');
-            $table->text('description');
-            $table->string('image');
+            $table->string('short_description');
+            $table->text('long_description');
+            $table->text('images');
             $table->foreignId('created_by')->constrained('users')->noActionOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->noActionOnDelete();
             $table->timestamps();

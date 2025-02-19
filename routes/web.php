@@ -1,16 +1,18 @@
 <?php
 
-use App\Http\Controllers\PackageController;
-use App\Http\Controllers\PortfolioController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\StructureController;
+use App\Http\Controllers\TestimonialController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -35,9 +37,8 @@ Route::middleware('auth')->group(function () {
         return view('content.anis.anis-portfolio');
     })->name('portfolio');
 
-    Route::get('/ERP-Finance-Expanses-Tracker', function () {
-        return view('content.erp.erp-finance-expanses');
-    })->name('expanses');
+    Route::get('/ERP-Finance-Expanses-Tracker', [ExpenseController::class, 'index'])->name('expanses');
+    Route::post('/ERP-Finance-Expanses-Tracker', [CategoryController::class, 'store'])->name('category.store');
 
     Route::get('/ERP-Finance-Audit', function () {
         return view('content.erp.erp-finance-audit');

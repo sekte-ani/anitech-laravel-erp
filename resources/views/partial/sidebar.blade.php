@@ -93,7 +93,7 @@
           <ul class="menu-sub">
             <li class="menu-item">
               <a href="{{ route('expanses') }}" class="menu-link">
-                <div class="text-truncate" data-i18n="Fluid">Expanses Tracker</div>
+                <div class="text-truncate" data-i18n="Fluid">Expenses Tracker</div>
               </a>
             </li>
             <li class="menu-item">

@@ -71,4 +71,22 @@ Route::middleware('auth')->group(function () {
     Route::resource('testimonials', TestimonialController::class);
 });
 
+    Route::get('/Profile', function () {
+        return view('content.profil.profil-edit');
+    })->name('profil');
+
+    Route::get('/Profile-Connection', function () {
+        return view('content.profil.profil-connection');
+    })->name('connection');
+    
+    
+
+
+
+Route::get('/Profile', function () {
+    return view('content.profil.profil-edit');
+})->name('profil');
+
+
+
 require __DIR__.'/auth.php';

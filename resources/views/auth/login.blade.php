@@ -1,4 +1,4 @@
-@extends('auth.partial-auth.layout-auth', ['title' => 'Forgot Password'])
+@extends('auth.partial-auth.layout-auth', ['title' => 'Login To E.R.P'])
   
 @section('content-auth')
 <!-- Register -->

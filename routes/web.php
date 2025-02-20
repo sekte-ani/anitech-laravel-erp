@@ -89,5 +89,9 @@ Route::get('/Profile', function () {
 })->name('profil');
 
 
+Route::get('/invoice', function () {
+    return view('invoice.invoice-template');
+});
+
 
 require __DIR__.'/auth.php';

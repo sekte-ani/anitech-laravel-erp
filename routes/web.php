@@ -38,7 +38,10 @@ Route::middleware('auth')->group(function () {
     })->name('portfolio');
 
     Route::get('/ERP-Finance-Expanses-Tracker', [ExpenseController::class, 'index'])->name('expanses');
-    Route::post('/ERP-Finance-Expanses-Tracker', [CategoryController::class, 'store'])->name('category.store');
+    Route::post('/ERP-Finance-Expanses-Tracker/category', [CategoryController::class, 'store'])->name('category.store');
+    Route::post('/ERP-Finance-Expanses-Tracker', [ExpenseController::class, 'store'])->name('expenses.store');
+    Route::put('/ERP-Finance-Expanses-Tracker/{expense}', [ExpenseController::class, 'update'])->name('expenses.update');
+    Route::delete('/ERP-Finance-Expanses-Tracker/{expense}', [ExpenseController::class, 'destroy'])->name('expenses.delete');
 
     Route::get('/ERP-Finance-Audit', function () {
         return view('content.erp.erp-finance-audit');

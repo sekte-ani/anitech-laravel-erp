@@ -34,9 +34,11 @@ class DatabaseSeeder extends Seeder
             'Pimpinan Tim Marketing',
             'Staff Operasional',
             'Staff Finance',
+            'Staff Marketing',
             'Mobile Engineer',
             'Back End Developer',
             'Front End Developer',
+            'UI/UX Designer',
             'AI/ML Developer',
         ];
         $slug_role = [
@@ -50,9 +52,11 @@ class DatabaseSeeder extends Seeder
             'pimpinan-tim-marketing',
             'staff-operasional',
             'staff-finance',
+            'staff-marketing',
             'mobile-engineer',
             'back-end-developer',
             'front-end-developer',
+            'ui-ux-designer',
             'ai-ml-developer',
         ];
 
@@ -112,6 +116,26 @@ class DatabaseSeeder extends Seeder
             'confirm_password' => 'admindummy123',
             'employee_id' => 1,
         ]);
+
+        $category = [
+            'Masa Aktif',
+            'Gaji',
+            'Bonus',
+            'Sisa Saldo',
+            'Pendapatan',
+            'Investasi Modal',
+            'Domain',
+            'Server',
+            'Tools',
+        ];
+
+        foreach($category as $c){
+            DB::table('category_expenses')->insert([
+                'name' => $c,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
 
         $serviceNames = [
             'Web Development',

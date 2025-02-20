@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="d-flex justify-content-end my-3">
-    <button type="button" class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#categoryModal">Add Category</button>
     <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#expenseModal">+</button>
 </div>
 
@@ -29,62 +28,37 @@
             </tr>
         </thead>
         <tbody class="table-border-bottom-0">
-          {{-- @foreach ($expenses as $e)
+          @foreach ($expenses as $e)
           <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $e->date }}</td>
-            <td>
-                @foreach ($e->divisions as $division)
-                    <span class="badge bg-primary">{{ $division->name }}</span>
-                @endforeach
-            </td>
-            <td>
-                @if ($e->images)
-                    <img src="{{ asset('storage/' . $e->images) }}" style="object-fit: cover; width: 100%; height: 100px; max-width: 200px;" class="card-img" alt="...">
-                @else
-                    <img src="https://picsum.photos/seed/nophoto" style="object-fit: cover; width: 100%; height: 100px; max-width: 200px;" class="card-img" alt="...">
+            <td>{{ $e->item }}</td>
+            <td>{{ $e->category->name }}</td>
+            <td>{{ $e->type }}</td>
+            <td>{{ $e->frequency }}</td>
+            <td class="text-success fw-bold">
+                @if ($e->type === 'Pemasukan' || $e->category->name === 'Sisa Saldo')
+                    {{ number_format($e->amount, 0, ',', '.') }}
                 @endif
             </td>
-            <td>
-                @if ($e->phone != null)
-                    {{ $e->phone }}
-                @else
-                    -
+            <td class="text-danger fw-bold">
+                @if ($e->type === 'Pengeluaran' && $e->category->name !== 'Sisa Saldo')
+                    {{ number_format($e->amount, 0, ',', '.') }}
                 @endif
             </td>
+            <td>{{ number_format($e->balance, 0, ',', '.') }}</td>
             <td>
-                @if ($e->address != null)
-                    {{ $e->address }}
-                @else
-                    -
-                @endif
-            </td>
-            <td>
-                @if ($e->bank_name != null)
-                    {{ $e->bank_name }}
-                @else
-                    -
-                @endif
-            </td>
-            <td>
-                @if ($e->bank_account != null)
-                    {{ $e->bank_account }}
-                @else
-                    -
-                @endif
-            </td>
-            <td>
-            @if (Auth::check() && (Auth::user()->employee->roles->contains('name', 'Admin') || Auth::user()->employee->id == $e->id))
+            @if (Auth::check() && Auth::user()->employee && Auth::user()->employee->roles->whereIn('name', ['Admin', 'Pimpinan Tim Operasional', 'Staff Finance'])->isNotEmpty())
               <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                   <i class="bx bx-dots-vertical-rounded"></i>
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editEmployeeModal{{ $e->id }}"
+                    <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editExpenseModal{{ $e->id }}"
                         ><i class="bx bx-edit-alt me-1"></i> Edit</a
                     >
-                    @if (Auth::user()->employee->roles[0]->name == 'Admin')
-                    <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="setDeleteUrl('{{ route('emp.delete', $e->id) }}')"
+                    @if (Auth::user()->employee->roles->whereIn('name', ['Admin', 'Pimpinan Tim Operasional'])->isNotEmpty())
+                    <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="setDeleteUrl('{{ route('expenses.delete', $e->id) }}')"
                         ><i class="bx bx-trash me-1"></i> Delete</a
                     >
                     @endif
@@ -93,16 +67,15 @@
             @endif
             </td>
           </tr>
-          @endforeach --}}
+          @endforeach
         </tbody>
       </table>
-      {{-- {{ $employees->withQueryString()->links() }} --}}
     </div>
   </div>
   <!-- Bootstrap Table with Header - Light -->
 
   <!-- Modal -->
-{{-- <div class="modal fade" id="expenseModal" tabindex="-1" aria-labelledby="expenseModalLabel" aria-hidden="true">
+<div class="modal fade" id="expenseModal" tabindex="-1" aria-labelledby="expenseModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -110,76 +83,61 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form method="post" action="{{ route('emp.store') }}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('expenses.store') }}" enctype="multipart/form-data">
             @csrf
                 <div class="mb-3">
-                    <label for="name" class="form-label">Nama</label>
-                    <input type="text" autofocus value="{{ old('name') }}" name="name" id="name" placeholder="Masukkan nama karyawan" class="form-control @error('name') is-invalid @enderror" required>
-                    @error('name')
+                    <label for="date" class="form-label">Tanggal</label>
+                    <input type="date" autofocus value="{{ old('date') }}" name="date" id="date" class="form-control @error('date') is-invalid @enderror" required>
+                    @error('date')
                         <div class="invalid-feedback">
                         {{ $message }}
                         </div>
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="slug" class="form-label">Slug</label>
-                    <input type="text" name="slug" id="slug" placeholder="Slug akan digenerate.." value="{{ old('slug') }}" readonly class="form-control @error('slug') is-invalid @enderror" id="slug" required>
-                    @error('slug')
+                    <label for="item" class="form-label">Item</label>
+                    <input type="text" name="item" id="item" placeholder="Masukkan Data" value="{{ old('item') }}" class="form-control @error('item') is-invalid @enderror" required>
+                    @error('item')
                         <div class="invalid-feedback">
                         {{ $message }}
                         </div>
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Masukkan email karyawan" required>
-                    @error('email')
-                        <div class="invalid-feedback">
-                        {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="division_id" class="form-label">Divisi</label>
-                    <select class="form-select" name="division_id" required>
-                    <option value="" disabled selected>--- Pilih Divisi ---</option>
-                    @foreach ($divisions as $d)
-                    @if (old('division_id') == $d->id)
-                        <option value="{{ $d->id }}" selected>{{ $d->name }}</option>
-                    @else
-                    <option value="{{ $d->id }}">{{ $d->name }}</option>
-                    @endif
+                    <label for="category_id" class="form-label">Kategori</label>
+                    <select class="form-select" name="category_id" required>
+                    <option value="" disabled selected>--- Pilih Kategori ---</option>
+                    @foreach ($category as $c)
+                        <option value="{{ $c->id }}" {{ old('category_id') == $c->id ? 'selected' : '' }}>
+                            {{ $c->name }}
+                        </option>
                     @endforeach
+                    </select>
+                    <button type="button" class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#categoryModal">Add Category</button>
+                </div>
+                <div class="mb-3">
+                    <label for="type" class="form-label">Tipe</label>
+                    <select class="form-select" name="type" id="type" required>
+                        <option value="" disabled selected>--- Pilih Tipe ---</option>
+                        @foreach ($type as $t)
+                            <option value="{{ $t }}" {{ old('type') == $t ? 'selected' : '' }}>{{ $t }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="role_id" class="form-label">Role</label>
-                    <select class="form-select" name="role_id" required>
-                    <option value="" disabled selected>--- Pilih Role ---</option>
-                    @foreach ($roles as $r)
-                    @if (old('role_id') == $r->id)
-                        <option value="{{ $r->id }}" selected>{{ $r->name }}</option>
-                    @else
-                    <option value="{{ $r->id }}">{{ $r->name }}</option>
-                    @endif
-                    @endforeach
+                    <label for="frequency" class="form-label">Sumber</label>
+                    <select class="form-select" name="frequency" id="frequency" required>
+                        <option value="" disabled selected>--- Pilih Sumber ---</option>
+                        @foreach ($frequency as $f)
+                            <option value="{{ $f }}" {{ old('frequency') == $f ? 'selected' : '' }}>{{ $f }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="images" class="form-label">Foto Karyawan</label>
-                    <img class="img-preview img-fluid mb-3 col-sm-5">
-                    <input class="form-control @error('images') is-invalid @enderror" onchange="previewImage()" type="file" name="images" id="images" accept="image/png, image/jpg, image/jpeg">
-                    @error('img')
+                    <label for="amount" class="form-label">Jumlah</label>
+                    <input class="form-control @error('amount') is-invalid @enderror" type="number" name="amount" id="amount" placeholder="Masukkan jumlah" value="{{ old('amount') }}">
+                    @error('amount')
                     {{ $message }}
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="phone" class="form-label">No. HP</label>
-                    <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror" id="phone" placeholder="Masukkan nomor telepon">
-                    @error('phone')
-                        <div class="invalid-feedback">
-                        {{ $message }}
-                        </div>
                     @enderror
                 </div>
             </div>
@@ -190,7 +148,7 @@
         </form>
       </div>
     </div>
-  </div> --}}
+  </div>
   
   <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -220,4 +178,105 @@
       </div>
     </div>
   </div>
+
+  @foreach($expenses as $e)
+    <div class="modal fade" id="editExpenseModal{{ $e->id }}" tabindex="-1" aria-labelledby="editExpenseModalLabel{{ $e->id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editExpenseModalLabel{{ $e->id }}">Edit Expense</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('expenses.update', $e->id) }}">
+                        @csrf
+                        @method('PUT')
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Tanggal</label>
+                            <input type="date" name="date" class="form-control @error('date') is-invalid @enderror" id="date" value="{{ old('date', $e->date) }}" required>
+                            @error('date')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="item" class="form-label">Item</label>
+                            <input type="text" name="item" class="form-control @error('item') is-invalid @enderror" id="item" value="{{ old('item', $e->item) }}" required>
+                            @error('item')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="category_id" class="form-label">Kategori</label>
+                            <select name="category_id" class="form-control @error('category_id') is-invalid @enderror" required>
+                                @foreach($category as $c)
+                                    <option value="{{ $c->id }}" {{ $e->category_id == $c->id ? 'selected' : '' }}>
+                                        {{ $c->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="type" class="form-label">Tipe</label>
+                            <select name="type" id="type" class="form-control">
+                                @foreach ($type as $t)
+                                    <option value="{{ $t }}" {{ $t == $e->type ? 'selected' : '' }}>{{ $t }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="frequency" class="form-label">Sumber</label>
+                            <select name="frequency" id="frequency" class="form-control">
+                                @foreach ($frequency as $f)
+                                    <option value="{{ $f }}" {{ $f == $e->frequency ? 'selected' : '' }}>{{ $f }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Jumlah</label>
+                            <input type="number" name="amount" class="form-control @error('amount') is-invalid @enderror" id="amount" value="{{ old('amount', $e->amount ?? 0) }}" step="0.01" required>
+                            @error('amount')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Expenses</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this expenses?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form id="delete-form" method="POST" action="" style="display: inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function setDeleteUrl(url) {
+            document.getElementById('delete-form').action = url;
+        }
+    </script>
 @endsection

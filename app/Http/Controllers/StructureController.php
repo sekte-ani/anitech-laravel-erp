@@ -15,7 +15,9 @@ class StructureController extends Controller
 {
     public function index()
     {
-        $role_user = RoleUser::orderBy('id', 'asc')->paginate(10);
+        $role_user = RoleUser::whereHas('employee', function ($query) {
+            $query->where('division_id', 1);
+        })->orderBy('id', 'asc')->get();
         $roles = Role::all();
         $divisions = Division::all();
 

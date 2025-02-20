@@ -16,8 +16,8 @@ class Expense extends Model
 
     protected static function boot() {
         parent::boot();
-
-        static::creating(function ($expense) {
+    
+        static::created(function ($expense) {
             Audit::create([
                 'user_id' => Auth::id(),
                 'expenses_id' => $expense->id,
@@ -26,7 +26,7 @@ class Expense extends Model
                 'ip_address' => request()->ip(),
             ]);
         });
-
+    
         static::updating(function ($expense) {
             Audit::create([
                 'user_id' => Auth::id(),
@@ -37,7 +37,7 @@ class Expense extends Model
                 'ip_address' => request()->ip(),
             ]);
         });
-
+    
         static::deleting(function ($expense) {
             Audit::create([
                 'user_id' => Auth::id(),
@@ -57,7 +57,7 @@ class Expense extends Model
 
     public function dashboard()
     {
-        return $this->belongsTo(DashboardExpense::class, 'dashboard_id');
+        return $this->belongsTo(DashboardExpense::class);
     }
 
     public function category()

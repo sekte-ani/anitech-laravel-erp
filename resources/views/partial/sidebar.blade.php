@@ -78,6 +78,7 @@
       </ul>
     </li>
     <!-- ERP -->
+    @if (Auth::check() && Auth::user()->employee && Auth::user()->employee->roles->whereIn('name', ['Admin', 'Pimpinan Tim Operasional', 'Staff Finance', 'Staff Operasional'])->isNotEmpty())
     <li class="menu-item">
       <a href="javascript:void(0);" class="menu-link menu-toggle ">
         <i class="menu-icon tf-icons bx bx-copy-alt "></i>
@@ -86,6 +87,7 @@
       </a>
       {{-- Finance Sub Menu --}}
       <ul class="menu-sub">
+        @if (Auth::check() && Auth::user()->employee && Auth::user()->employee->roles->whereIn('name', ['Admin', 'Pimpinan Tim Operasional', 'Staff Finance'])->isNotEmpty())
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle  ">
             <div class="text-truncate" data-i18n="Analytics">Finance</div>
@@ -108,7 +110,9 @@
             </li>
           </ul>
         </li>
+        @endif
         {{-- Operational Needs Sub Menu --}}
+        @if (Auth::check() && Auth::user()->employee && Auth::user()->employee->roles->whereIn('name', ['Admin', 'Pimpinan Tim Operasional', 'Staff Operasional'])->isNotEmpty())
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle  ">
             <div class="text-truncate" data-i18n="Analytics">Operational Needs</div>
@@ -131,8 +135,10 @@
             </li>
           </ul>
         </li>
+        @endif
       </ul>
     </li>
+    @endif
   </ul>
 </aside>
 <!-- / Menu -->

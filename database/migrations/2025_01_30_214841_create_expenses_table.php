@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('type', ['Pengeluaran', 'Pemasukan']);
             $table->enum('frequency', ['Project', 'Bulanan', 'Satu Kali', 'Tahunan']);
             $table->decimal('amount', 20, 2);
+            $table->decimal('balance', 20, 2);
             $table->unsignedBigInteger('dashboard_id');
             $table->timestamps();
 

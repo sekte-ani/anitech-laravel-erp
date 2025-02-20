@@ -34,7 +34,6 @@
             @endforeach
         </tbody>
       </table>
-      {{ $role_user->withQueryString()->links() }}
     </div>
   </div>
 @endsection

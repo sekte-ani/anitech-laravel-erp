@@ -16,7 +16,7 @@ class CheckActive
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && !Auth::user()->status == 'Active'){
+        if(Auth::check() && Auth::user()->status !== 'Active'){
             Auth::logout();
             return redirect('/login')->with('error', 'Akun anda belum diaktifkan oleh admin');
         }

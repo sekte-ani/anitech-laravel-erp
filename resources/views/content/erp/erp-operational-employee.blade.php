@@ -23,9 +23,8 @@
         </thead>
         <tbody class="table-border-bottom-0">
           @foreach ($users as $u)
-          @if ($u->employee->roles->contains('name', 'Admin') == false)
           <tr>
-            <td>{{ $loop->iteration - 1 }}</td>
+            <td>{{ $loop->iteration }}</td>
             <td>{{ $u->employee->name }}</td>
             <td>{{ $u->email }}</td>
             @if (Auth::user()->employee->roles[0]->name == 'Admin')
@@ -53,7 +52,6 @@
             </td>
             @endif
           </tr>
-          @endif
           @endforeach
         </tbody>
       </table>
@@ -85,9 +83,8 @@
         </thead>
         <tbody class="table-border-bottom-0">
           @foreach ($employees as $e)
-          @if ($e->roles->contains('name', 'Admin') == false)
           <tr>
-            <td>{{ $loop->iteration - 1 }}</td>
+            <td>{{ $loop->iteration }}</td>
             <td>{{ $e->name }}</td>
             <td>
                 @foreach ($e->divisions as $division)
@@ -149,7 +146,6 @@
             @endif
             </td>
           </tr>
-          @endif
           @endforeach
         </tbody>
       </table>

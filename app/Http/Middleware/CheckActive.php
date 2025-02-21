@@ -18,7 +18,7 @@ class CheckActive
     {
         if(Auth::check() && !Auth::user()->status == 'Active'){
             Auth::logout();
-            return redirect('/')->with('error', 'Akun anda belum diaktifkan oleh admin');
+            return redirect('/login')->with('error', 'Akun anda belum diaktifkan oleh admin');
         }
 
         return $next($request);

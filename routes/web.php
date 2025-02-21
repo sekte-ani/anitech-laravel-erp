@@ -15,7 +15,7 @@ use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\StructureController;
 use App\Http\Controllers\TestimonialController;
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'checkActive'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/General-Product', [ProductController::class, 'index'])->name('product');
@@ -86,7 +86,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::get('/Profile', function () {
+Route::get('/profile', function () {
     return view('content.profil.profil-edit');
 })->name('profil');
 

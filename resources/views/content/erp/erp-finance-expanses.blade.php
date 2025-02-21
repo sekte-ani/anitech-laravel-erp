@@ -9,6 +9,10 @@
  <div class="card">
     <h5 class="card-header">Expenses Tracker</h5>
     <div class="table-responsive text-nowrap">
+        <form action="{{ route('expanses') }}" method="GET" class="d-flex mb-3">
+            <input type="month" name="month" class="form-control me-2" value="{{ request('month') }}">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
       <table class="table table-hover">
         <thead class="table-light text-center">
             <tr>

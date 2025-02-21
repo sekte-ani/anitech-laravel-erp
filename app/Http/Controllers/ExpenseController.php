@@ -10,9 +10,22 @@ use Illuminate\Support\Facades\DB;
 
 class ExpenseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $expenses = Expense::orderBy('date')->get();
+        $selectedMonth = $request->input('month', now()->format('Y-m'));
+        $date = explode('-', $selectedMonth);
+        $selectedYear = $date[0];
+        $selectedMonthNum = $date[1];
+
+        $currentMonth = now()->format('m');
+        $currentYear = now()->format('Y');
+
+        if ($selectedMonthNum == $currentMonth && $selectedYear == $currentYear) {
+            $expenses = Expense::whereMonth('date', $selectedMonthNum)->whereYear('date', $selectedYear)->orderBy('date')->get();
+        } else {
+            $expenses = DB::table('expenses_archive')->whereMonth('date', $selectedMonthNum)->whereYear('date', $selectedYear)->orderBy('date')->get();
+        }
+
         $category = CategoryExpense::all();
         $type = ['Pengeluaran', 'Pemasukan'];
         $frequency = ['Project', 'Bulanan', 'Satu Kali', 'Tahunan'];

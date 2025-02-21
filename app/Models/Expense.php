@@ -27,7 +27,7 @@ class Expense extends Model
             ]);
         });
     
-        static::updating(function ($expense) {
+        static::updated(function ($expense) {
             Audit::create([
                 'user_id' => Auth::id(),
                 'expenses_id' => $expense->id,
@@ -38,7 +38,7 @@ class Expense extends Model
             ]);
         });
     
-        static::deleting(function ($expense) {
+        static::deleted(function ($expense) {
             Audit::create([
                 'user_id' => Auth::id(),
                 'expenses_id' => $expense->id,

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuditController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
@@ -43,9 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/ERP-Finance-Expanses-Tracker/{expense}', [ExpenseController::class, 'update'])->name('expenses.update');
     Route::delete('/ERP-Finance-Expanses-Tracker/{expense}', [ExpenseController::class, 'destroy'])->name('expenses.delete');
 
-    Route::get('/ERP-Finance-Audit', function () {
-        return view('content.erp.erp-finance-audit');
-    })->name('audit');
+    Route::get('/ERP-Finance-Audit', [AuditController::class, 'index'])->name('audit');
 
     Route::get('/ERP-Finance-Invoicing', function () {
         return view('content.erp.erp-finance-invoicing');

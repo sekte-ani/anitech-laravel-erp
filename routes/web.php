@@ -8,6 +8,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
@@ -72,28 +73,23 @@ Route::middleware(['auth', 'checkActive'])->group(function () {
     Route::resource('packages', PackageController::class);
     Route::resource('portfolios', PortfolioController::class);
     Route::resource('testimonials', TestimonialController::class);
+    Route::resource('promotions', PromotionController::class);
 });
 
-    Route::get('/Profile', function () {
-        return view('content.profil.profil-edit');
-    })->name('profil');
+Route::get('/Profile', function () {
+    return view('content.profil.profil-edit');
+})->name('profil');
 
-    Route::get('/Profile-Connection', function () {
-        return view('content.profil.profil-connection');
-    })->name('connection');
+Route::get('/Profile-Connection', function () {
+    return view('content.profil.profil-connection');
+})->name('connection');
     
-    
-
-
-
 Route::get('/profile', function () {
     return view('content.profil.profil-edit');
 })->name('profil');
 
-
 Route::get('/invoice', function () {
     return view('invoice.invoice-template');
 });
-
 
 require __DIR__.'/auth.php';

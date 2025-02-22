@@ -16,8 +16,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        $employees = Employee::with('roles')->orderBy('id', 'asc')->paginate(5);
-        $users = User::with('employee')->orderBy('id', 'asc')->paginate(5);
+        $employees = Employee::with('roles')->where('id', '!=', 1)->orderBy('id', 'asc')->paginate(5);
+        $users = User::with('employee')->where('id', '!=', 1)->orderBy('id', 'asc')->paginate(5);
         $roles = Role::where('name', '!=', 'Admin')->get();
         $divisions = Division::all();
         $status = ['Active', 'Non-Active'];

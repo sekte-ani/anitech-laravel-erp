@@ -6,6 +6,7 @@
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
             @yield('content-auth')
+            @include('sweetalert::alert')
         </div>
       </div>
     </div>

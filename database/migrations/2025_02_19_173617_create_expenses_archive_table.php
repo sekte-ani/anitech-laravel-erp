@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('expenses', function (Blueprint $table) {
+        Schema::create('expenses_archive', function (Blueprint $table) {
             $table->id();
             $table->date('date');
             $table->string('item');
@@ -19,8 +19,9 @@ return new class extends Migration
             $table->enum('type', ['Pengeluaran', 'Pemasukan']);
             $table->enum('frequency', ['Project', 'Bulanan', 'Satu Kali', 'Tahunan']);
             $table->decimal('amount', 20, 2);
-            $table->decimal('balance', 20, 2);
             $table->unsignedBigInteger('dashboard_id');
+            $table->integer('month');
+            $table->integer('year');
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('category_expenses')->onDelete('cascade');
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('expenses');
+        Schema::dropIfExists('expenses_archive');
     }
 };

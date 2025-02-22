@@ -1,19 +1,22 @@
 <?php
 
-use App\Http\Controllers\PackageController;
-use App\Http\Controllers\PortfolioController;
-use App\Http\Controllers\PromotionController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\AuditController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PromotionController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\StructureController;
+use App\Http\Controllers\TestimonialController;
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'checkActive'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/General-Product', [ProductController::class, 'index'])->name('product');
@@ -36,13 +39,13 @@ Route::middleware('auth')->group(function () {
         return view('content.anis.anis-portfolio');
     })->name('portfolio');
 
-    Route::get('/ERP-Finance-Expanses-Tracker', function () {
-        return view('content.erp.erp-finance-expanses');
-    })->name('expanses');
+    Route::get('/ERP-Finance-Expanses-Tracker', [ExpenseController::class, 'index'])->name('expanses');
+    Route::post('/ERP-Finance-Expanses-Tracker/category', [CategoryController::class, 'store'])->name('category.store');
+    Route::post('/ERP-Finance-Expanses-Tracker', [ExpenseController::class, 'store'])->name('expenses.store');
+    Route::put('/ERP-Finance-Expanses-Tracker/{expense}', [ExpenseController::class, 'update'])->name('expenses.update');
+    Route::delete('/ERP-Finance-Expanses-Tracker/{expense}', [ExpenseController::class, 'destroy'])->name('expenses.delete');
 
-    Route::get('/ERP-Finance-Audit', function () {
-        return view('content.erp.erp-finance-audit');
-    })->name('audit');
+    Route::get('/ERP-Finance-Audit', [AuditController::class, 'index'])->name('audit');
 
     Route::get('/ERP-Finance-Invoicing', function () {
         return view('content.erp.erp-finance-invoicing');
@@ -71,6 +74,22 @@ Route::middleware('auth')->group(function () {
     Route::resource('portfolios', PortfolioController::class);
     Route::resource('testimonials', TestimonialController::class);
     Route::resource('promotions', PromotionController::class);
+});
+
+Route::get('/Profile', function () {
+    return view('content.profil.profil-edit');
+})->name('profil');
+
+Route::get('/Profile-Connection', function () {
+    return view('content.profil.profil-connection');
+})->name('connection');
+    
+Route::get('/profile', function () {
+    return view('content.profil.profil-edit');
+})->name('profil');
+
+Route::get('/invoice', function () {
+    return view('invoice.invoice-template');
 });
 
 require __DIR__.'/auth.php';

@@ -15,6 +15,6 @@ class DashboardExpense extends Model
 
     public function expense()
     {
-        return $this->hasMany(Expense::class, 'dashboard_id');
+        return $this->hasMany(Expense::class);
     }
 }

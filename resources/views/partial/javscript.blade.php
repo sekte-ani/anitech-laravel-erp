@@ -20,5 +20,36 @@
 
     <!-- Place this tag before closing body tag for github widget button. -->
     <script async defer src="{{asset('https://buttons.github.io/buttons.js')}}"></script>
+
+
+    {{-- Active SIde --}}
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          let currentUrl = window.location.href;
+    
+          document.querySelectorAll(".menu-item a").forEach(function (link) {
+              if (link.href === currentUrl) {
+                  let menuItem = link.closest(".menu-item");
+                  if (menuItem) {
+                      menuItem.classList.add("active");
+                  }
+    
+                  // Telusuri semua parent yang memiliki .menu-sub
+                  let parentSubMenu = menuItem.closest(".menu-sub");
+                  while (parentSubMenu) {
+                      let parentMenuItem = parentSubMenu.closest(".menu-item");
+                      if (parentMenuItem) {
+                          parentMenuItem.classList.add("open", "active"); // Tambahkan active
+                      }
+                      parentSubMenu.style.display = "block";
+                      parentSubMenu = parentMenuItem?.closest(".menu-sub"); // Cek jika masih ada parent
+                  }
+              }
+          });
+      });
+    </script>
+    
+    
   </body>
 </html>

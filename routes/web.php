@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
@@ -69,6 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('packages', PackageController::class);
     Route::resource('portfolios', PortfolioController::class);
     Route::resource('testimonials', TestimonialController::class);
+    Route::resource('promotions', PromotionController::class);
 });
 
 require __DIR__.'/auth.php';

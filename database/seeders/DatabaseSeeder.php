@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Package;
 use App\Models\Portfolio;
+use App\Models\Promotion;
 use App\Models\Service;
 use App\Models\Role;
 use App\Models\Testimonial;
@@ -267,5 +268,13 @@ class DatabaseSeeder extends Seeder
                 'created_by' => 1,
             ]);
         }
+
+        Promotion::create([
+            'name' => 'Promo Tahun Baru',
+            'name_slug' => str()->slug('Promo Tahun Baru'),
+            'image' => 'promotions/promo-1.png',
+            'url' => '/services/1',
+            'created_by' => 1
+        ]);
     }
 }

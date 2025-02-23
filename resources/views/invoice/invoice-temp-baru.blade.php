@@ -47,12 +47,14 @@
 
       .big-box {
         background: #f1f1f1;
-        padding-left: 10px;
-        padding-right: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
         padding-bottom: 5px;
         border-radius: 8px;
         margin-bottom: 10px;
+        flex-direction: row;
         display: flex;
+        flex-wrap: nowrap;
         justify-content: space-between;
       }
 
@@ -60,7 +62,7 @@
         
         padding: 15px;
         border-radius: 8px;
-        margin-bottom: 20px;
+        
       }
 
       table {
@@ -112,7 +114,7 @@
   <body>
     <div class="container">
       <div class="header">
-        <img src="{{ asset('img/illustrations/icon_ani.jpg') }}" style="width: auto "  />
+        <img src="{{ asset('img/illustrations/icon_ani.jpg') }}" style="width: auto; height: 200px; "  />
         <div>
           <h4>Invoice</h4>
           <h4>ANI Tech</h4>

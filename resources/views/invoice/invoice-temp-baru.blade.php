@@ -90,7 +90,7 @@
         justify-content: space-between;
         width: 250px;
         margin-left: auto;
-        font-size: 14px;
+        font-size: 13px;
       }
 
       .amount-due {
@@ -99,6 +99,7 @@
         border-radius: 8px;
         text-align: right;
         margin-top: 10px;
+        font-size: 15px;
       }
 
       ul {

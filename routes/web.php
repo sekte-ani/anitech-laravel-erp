@@ -94,4 +94,9 @@ Route::get('/profile', function () {
 Route::get('/invoice/{id}/preview', [InvoiceController::class, 'preview'])->name('invoice.preview');
 Route::get('/invoice/{id}/download', [InvoiceController::class, 'download'])->name('invoice.download');
 
+
+
+Route::get('/tempvoice', function () {
+    return view('invoice.invoice-temp-baru');
+})->name('profil');
 require __DIR__.'/auth.php';

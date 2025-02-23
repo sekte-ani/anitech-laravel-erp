@@ -112,7 +112,7 @@
   <body>
     <div class="container">
       <div class="header">
-        <img src="{{ asset('img/illustrations/Logo_Anitech.png') }}" />
+        <img src="{{ asset('img/illustrations/icon_ani.jpg') }}" style="width: auto "  />
         <div>
           <h4>Invoice</h4>
           <h4>ANI Tech</h4>

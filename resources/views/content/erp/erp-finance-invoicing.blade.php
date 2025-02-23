@@ -50,9 +50,11 @@
                     >
                     @endif
                     <a class="dropdown-item" href="{{ route('invoice.preview', $i->id) }}" target="_blank">
-                        <i class="bx bx-download me-1"></i> Download
+                        <i class="bx bx-show me-1"></i> Preview
                     </a>
-                    <a href="{{ route('invoice.download', $i->id) }}" class="btn btn-success">Download PDF</a>
+                    <a class="dropdown-item" href="{{ route('invoice.download', $i->id) }}">
+                        <i class="bx bx-download me-1"></i>Download
+                    </a>
                 </div>
             </div>
             @endif

@@ -26,6 +26,11 @@ class Invoice extends Model
         return 'INV-' . $date . '-' . str_pad($number, 4, '0', STR_PAD_LEFT);
     }
 
+    public function getFormattedDateAttribute()
+    {
+        return Carbon::parse($this->created_at)->format('d M Y');
+    }
+
     public function orders()
     {
         return $this->hasMany(Order::class, 'invoice_id');

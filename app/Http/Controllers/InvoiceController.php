@@ -150,7 +150,7 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::with('orders.client')->findOrFail($id);
 
-        return view('invoice.invoice-template', compact('invoice'));
+        return view('invoice.invoice-temp-baru', compact('invoice'));
     }
 
     public function download($id)
@@ -158,7 +158,7 @@ class InvoiceController extends Controller
         $invoice = Invoice::with('orders.client')->findOrFail($id);
         $client = $invoice->orders->first()?->client->name ?? 'Unknown';
 
-        $pdf = Pdf::loadView('invoice.invoice-template', compact('invoice'));
+        $pdf = Pdf::loadView('invoice.invoice-temp-baru', compact('invoice'));
 
         return $pdf->download("Invoice {$client}.pdf");
     }

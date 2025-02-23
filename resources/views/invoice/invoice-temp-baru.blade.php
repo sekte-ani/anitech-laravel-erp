@@ -8,6 +8,11 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon/favicon.ico') }}" />
 
     <style>
+      @page {
+          size: A4;
+          margin: 20mm;
+      }
+
       * {
         margin: 0;
         padding: 0;
@@ -18,6 +23,7 @@
       body {
         background-color: #f8f9fa;
         padding: 20px;
+        font-size: 12px;
       }
 
       .container {
@@ -41,10 +47,6 @@
         height: 120px;
       }
 
-      .header div {
-        text-align: right;
-      }
-
       .big-box {
         background: #f1f1f1;
         margin-left: 10px;
@@ -56,13 +58,6 @@
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-between;
-      }
-
-      .box {
-        
-        padding: 15px;
-        border-radius: 8px;
-        
       }
 
       table {
@@ -95,6 +90,7 @@
         justify-content: space-between;
         width: 250px;
         margin-left: auto;
+        font-size: 14px;
       }
 
       .amount-due {
@@ -114,27 +110,36 @@
   <body>
     <div class="container">
       <div class="header">
-        <img src="{{ asset('img/illustrations/icon_ani.jpg') }}" style="width: auto; height: 200px; "  />
-        <div>
-          <h4>Invoice</h4>
-          <h4>ANI Tech</h4>
-          <h5>Application Nusantara Innovation Technology</h5>
-          <h5>+6285117202154</h5>
-          <h5>aniteknologi@gmail.com</h5>
-        </div>
+        <table width="100%" style="border-style: none;" border="0">
+          <tr>
+              <td style="border: none;">
+                  <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('img/illustrations/icon_ani.jpg'))) }}" style="max-width: 500px; height: 200px; width: auto;">
+              </td>
+              <td style="border: none; text-align: right;">
+                  <b>Invoice</b><br>
+                  ANI Tech<br>
+                  Application Nusantara Innovation Technology<br>
+                  +6285117202154<br>
+                  aniteknologi@gmail.com
+              </td>
+          </tr>
+        </table>
       </div>
 
       <div class="big-box">
-        <div class="box">
-            <h6 style="font-size: large">BILL TO</h6>
-            <p style="font-size: medium">Firman Hasani Putra</p>
-            <p style="font-size: medium">+6289652410787</p>
-          </div>
-    
-          <div class="box">
-            <p><strong>Invoice #:</strong> 12</p>
-            <p><strong>Date:</strong> 17 Feb 2025</p>
-          </div>
+        <table width="100%" style="background-color: #f5f5f5; padding: 10px; border-style: none;" border="0">
+          <tr>
+              <td style="border: none; padding: 15px; border-radius: 8px;">
+                  <b>BILL TO</b><br>
+                  {{ $invoice->orders->first()?->client->name }}<br>
+                  {{ $invoice->orders->first()?->client->phone }}
+              </td>
+              <td style="border: none; text-align: right; padding: 15px; border-radius: 8px;">
+                  <b>Invoice #: {{ $invoice->invoice_number }}</b><br>
+                  <b>Date: {{ $invoice->formatted_date }}</b>
+              </td>
+          </tr>
+        </table>
       </div>
       
 
@@ -148,40 +153,36 @@
           </tr>
         </thead>
         <tbody>
+          @foreach($invoice->orders as $o)
           <tr>
-            <td>Server & Hosting Website</td>
-            <td>1</td>
-            <td>Rp.300,000</td>
-            <td>Rp.300,000</td>
+            <td>{{ $o->item }}</td>
+            <td>{{ $o->quantity }}</td>
+            <td>Rp{{ number_format($o->price, 0, ',','.') }}</td>
+            <td>Rp{{ number_format($o->amount, 0, ',','.') }}</td>
           </tr>
+          @endforeach
         </tbody>
       </table>
 
       <div class="summary">
         <div>
           <p><strong>Sub Total</strong></p>
-          <p>Rp.300,000</p>
+          <p>Rp{{ number_format($invoice->sub_total, 0, ',','.') }}</p>
         </div>
         <div>
           <p><strong>Total</strong></p>
-          <p>Rp.300,000</p>
+          <p>Rp{{ number_format($invoice->total, 0, ',','.') }}</p>
         </div>
       </div>
 
       <div class="amount-due">
         <p><strong>Amount Due</strong></p>
-        <h3>Rp.300,000</h3>
+        <h3>Rp{{ number_format($invoice->amount_due, 0, ',','.') }}</h3>
       </div>
 
       <ul>
-        <li>Pembayaran harus dibayarkan paling lambat H+3 setelah hosting diberikan kepada pelanggan.</li>
-        <li>Jika sisa pembayaran tidak dibayarkan pada H+3 setelah hosting diberikan, maka server akan dimatikan dan hosting akan dicabut.</li>
-        <li>Batas penggunaan server dan hosting maksimal 1 bulan.</li>
+        {{ strip_tags($invoice->notes) }}
       </ul>
-
-      <p>Terima kasih atas kepercayaan Anda.</p>
-      <p>Best Regard,</p>
-      <p>Team ANI Tech</p>
     </div>
   </body>
 </html>

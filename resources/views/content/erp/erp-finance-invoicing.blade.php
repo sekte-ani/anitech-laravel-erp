@@ -152,7 +152,7 @@
                 @csrf
                     <div class="mb-3">
                         <label for="client_id" class="form-label">Tujuan</label>
-                        <input type="text" name="client_id" class="form-control @error('client_id') is-invalid @enderror" id="client_id" value="{{ $client->name }}">
+                        <input type="text" name="client_id" class="form-control @error('client_id') is-invalid @enderror" id="client_id" value="{{ $client->name }}" readonly>
                         @error('client_id')
                             <div class="invalid-feedback">
                             {{ $message }}

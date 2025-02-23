@@ -10,7 +10,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with('client')->orderBy('id', 'asc')->paginate(5);
+        $orders = Order::with('client')->where('status', '!=', 'Completed')->orderBy('id', 'asc')->paginate(10);
         $clients = Client::all();
         $status = ['Pending', 'On Progress', 'Completed', 'Cancelled'];
 

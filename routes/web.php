@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\AuditController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuditController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
@@ -46,9 +47,11 @@ Route::middleware(['auth', 'checkActive'])->group(function () {
 
     Route::get('/ERP-Finance-Audit', [AuditController::class, 'index'])->name('audit');
 
-    Route::get('/ERP-Finance-Invoicing', function () {
-        return view('content.erp.erp-finance-invoicing');
-    })->name('invoicing');
+    Route::get('/ERP-Finance-Invoicing/{id?}', [InvoiceController::class, 'index'])->name('invoicing');
+    Route::post('/ERP-Finance-Invoicing', [InvoiceController::class, 'store'])->name('invoicing.store');
+    Route::post('/ERP-Finance-Invoicing/addOrder', [InvoiceController::class, 'addOrders'])->name('invoicing.addOrder');
+    Route::put('/ERP-Finance-Invoicing/{invoice}', [InvoiceController::class, 'update'])->name('invoicing.update');
+    Route::delete('/ERP-Finance-Invoicing/{invoice}', [InvoiceController::class, 'destroy'])->name('invoicing.delete');
 
     Route::get('/ERP-Operational-Employee', [UserController::class, 'index'])->name('emp');
     Route::post('/ERP-Operational-Employee/store', [UserController::class, 'store'])->name('emp.store');
@@ -91,9 +94,7 @@ Route::get('/profile', function () {
 })->name('profil');
 
 
-Route::get('/invoice', function () {
-    return view('invoice.invoice-template');
-});
-
+Route::get('/invoice/{id}/preview', [InvoiceController::class, 'preview'])->name('invoice.preview');
+Route::get('/invoice/{id}/download', [InvoiceController::class, 'download'])->name('invoice.download');
 
 require __DIR__.'/auth.php';

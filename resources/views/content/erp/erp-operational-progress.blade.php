@@ -153,15 +153,10 @@
             @method('PUT')
                 <div class="mb-3">
                     <label for="client_id" class="form-label">Client</label>
-                    <select class="form-select" name="client_id" required>
-                    @foreach ($clients as $c)
-                    @if (old('client_id') == $c->id)
-                        <option value="{{ $c->id }}" selected>{{ $c->name }}</option>
-                    @else
-                    <option value="{{ $c->id }}">{{ $c->name }}</option>
-                    @endif
-                    @endforeach
-                    </select>
+                    <input type="text" name="client_id" id="client_id" class="form-control @error('client_id') is-invalid @enderror" value="{{ old('type', $o->client->name) }}" readonly />
+                    @error('client_id')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="item" class="form-label">Item</label>

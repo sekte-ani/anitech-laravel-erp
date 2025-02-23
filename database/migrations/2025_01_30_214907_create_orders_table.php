@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('client_id');
+            $table->unsignedBigInteger('invoice_id')->nullable();
             $table->string('item');
             $table->integer('quantity');
             $table->decimal('price', 20, 2);
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
         });
     }
 

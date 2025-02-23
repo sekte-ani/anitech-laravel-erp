@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->enum('type', ['Internal', 'Order']);
-            $table->unsignedBigInteger('order_id')->nullable();
             $table->date('date');
-            $table->integer('invoice_number');
+            $table->string('invoice_number', 50);
             $table->decimal('subtotal', 20, 2);
             $table->decimal('discount', 20, 2);
             $table->decimal('total', 20, 2);
@@ -24,8 +23,6 @@ return new class extends Migration
             $table->string('notes')->nullable();
             $table->enum('status', ['Pending', 'Paid', 'Cancelled'])->default('Pending');
             $table->timestamps();
-
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 

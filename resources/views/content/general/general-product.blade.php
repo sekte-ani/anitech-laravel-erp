@@ -141,11 +141,11 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                  <label for="decription" class="form-label">Deskripsi Produk</label>
+                  <label for="decriptionEdit{{ $p->id }}" class="form-label">Deskripsi Produk</label>
                   @error('description')
                     <p class="text-danger">{{ $message }}</p>
                   @enderror
-                  <textarea name="description" id="descriptionEdit" required>{{ old('description', $p->description) }}</textarea>
+                  <textarea name="description" id="descriptionEdit{{ $p->id }}" required>{{ old('description', $p->description) }}</textarea>
                 </div>
                 <div class="mb-3">
                     <label for="images" class="form-label">Foto Produk</label>
@@ -205,7 +205,18 @@
     });
 
     CKEDITOR.replace( 'description' );
-    CKEDITOR.replace( 'descriptionEdit' );
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll(".modal").forEach(modal => {
+        modal.addEventListener("shown.bs.modal", function() {
+          this.querySelectorAll("textarea[name='description']").forEach(textarea => {
+            if (!textarea.classList.contains("ck-initialized")) {
+              CKEDITOR.replace(textarea.id);
+              textarea.classList.add("ck-initialized");
+            }
+          });
+        });
+      });
+    });
 
     function previewImage(){
         const image = document.querySelector('#img');

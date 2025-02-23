@@ -17,7 +17,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon/favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ base_path('img/favicon/favicon.ico') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,15 +26,16 @@
       href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
       rel="stylesheet" />
 
-    <link rel="stylesheet" href="{{ asset('vendor/fonts/boxicons.css') }}" />
-
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('vendor/css/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ base_path('public/vendor/css/core.css') }}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ base_path('public/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ base_path('public/css/demo.css') }}" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+    <style>
+        {!! file_get_contents(public_path('vendor/libs/perfect-scrollbar/perfect-scrollbar.css')) !!}
+        {!! file_get_contents(public_path('vendor/fonts/boxicons.css')) !!}
+    </style>
 
     <!-- Page CSS -->
     <style>
@@ -48,16 +49,16 @@
     </style>
 
     <!-- Helpers -->
-    <script src="{{ asset('vendor/js/helpers.js') }}"></script>
+    <script src="{{ base_path('public/vendor/js/helpers.js') }}"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('js/config.js') }}"></script>
+    <script src="{{ base_path('public/js/config.js') }}"></script>
   </head>
 
 <body>
     <div class="d-flex justify-content-around mt-5 mx-5">
         <div class="align-self-center">
-            <img src="{{asset('img/illustrations/Logo_Anitech.png')}}" class="img-fluid" style="width: 100px; height: 120px; ">
+            <img src="{{base_path('public/img/illustrations/Logo_Anitech.png')}}" class="img-fluid" style="width: 100px; height: 120px; ">
         </div>
         <div class="d-flex justify-content-end flex-column ">
             <h4 class="text-end">Invoice</h4>
@@ -71,13 +72,13 @@
         <div class="d-flex justify-content-around mt-5 mx-5 w-75 bg-light pt-4 rounded ">
             <div class="flex-column">
                 <h6 class="text-end fs-6">BILL TO</h6>
-                <h6 class="text-end fs-6 fw-light">Firman Hasani Putra</h6>
-                <h6 class="text-end fs-6 fw-light">+6289652410787</h6>
+                <h6 class="text-end fs-6 fw-light">{{ $invoice->orders->first()?->client->name }}</h6>
+                <h6 class="text-end fs-6 fw-light">{{ $invoice->orders->first()?->client->phone }}</h6>
             </div>
     
             <div class="d-flex justify-content-around">
                 <div class= "flex-column">
-                    <h6 class=" fs-6">Invoice #</h6>
+                    <h6 class=" fs-6">Invoice # {{ $invoice->invoice_number }}</h6>
                     <h6 class=" fs-6">Date</h6>
                 </div>
                 <div class="flex-column ms-5">
